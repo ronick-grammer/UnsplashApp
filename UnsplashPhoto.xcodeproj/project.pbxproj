@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,7 +46,6 @@
 				9C17220FF0D90FDC5314A72D /* Pods-UnsplashPhoto.debug.xcconfig */,
 				CCD5B6BAC76E1D208318090A /* Pods-UnsplashPhoto.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
