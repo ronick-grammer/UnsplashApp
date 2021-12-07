@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4DA00AF16FCCA1B0C86BA708 /* Pods_UnsplashPhoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5CA8699D6C13224C341D60 /* Pods_UnsplashPhoto.framework */; };
+		D4D5DFDF275E015F00314F2E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D5DFDE275E015F00314F2E /* SearchViewController.swift */; };
+		D4D5DFE2275E104400314F2E /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D5DFE1275E104400314F2E /* SearchCell.swift */; };
 		D4FD6AD3275DDD2A00E115A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FD6AD2275DDD2A00E115A6 /* AppDelegate.swift */; };
 		D4FD6AD5275DDD2A00E115A6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FD6AD4275DDD2A00E115A6 /* SceneDelegate.swift */; };
 		D4FD6AD7275DDD2A00E115A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FD6AD6275DDD2A00E115A6 /* ViewController.swift */; };
@@ -19,6 +21,8 @@
 		9C17220FF0D90FDC5314A72D /* Pods-UnsplashPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhoto.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashPhoto/Pods-UnsplashPhoto.debug.xcconfig"; sourceTree = "<group>"; };
 		BF5CA8699D6C13224C341D60 /* Pods_UnsplashPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD5B6BAC76E1D208318090A /* Pods-UnsplashPhoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhoto.release.xcconfig"; path = "Target Support Files/Pods-UnsplashPhoto/Pods-UnsplashPhoto.release.xcconfig"; sourceTree = "<group>"; };
+		D4D5DFDE275E015F00314F2E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		D4D5DFE1275E104400314F2E /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		D4FD6ACF275DDD2A00E115A6 /* UnsplashPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4FD6AD2275DDD2A00E115A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4FD6AD4275DDD2A00E115A6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +64,7 @@
 		D4D5DFD7275DF34100314F2E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D4D5DFDE275E015F00314F2E /* SearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -81,8 +86,17 @@
 		D4D5DFDA275DF47100314F2E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D4D5DFE0275E101800314F2E /* Search */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D4D5DFE0275E101800314F2E /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D4D5DFE1275E104400314F2E /* SearchCell.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		D4FD6AC6275DDD2A00E115A6 = {
@@ -234,7 +248,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4FD6AD7275DDD2A00E115A6 /* ViewController.swift in Sources */,
+				D4D5DFE2275E104400314F2E /* SearchCell.swift in Sources */,
 				D4FD6AD3275DDD2A00E115A6 /* AppDelegate.swift in Sources */,
+				D4D5DFDF275E015F00314F2E /* SearchViewController.swift in Sources */,
 				D4FD6AD5275DDD2A00E115A6 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
