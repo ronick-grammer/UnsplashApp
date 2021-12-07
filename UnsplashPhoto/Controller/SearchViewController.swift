@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import SnapKit
 
 class SearchViewController: UITableViewController {
     
@@ -99,7 +98,7 @@ extension SearchViewController{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SearchCell
         
-        cell.configure(photo: UIImage(named: "restraurant_1")!, name: "Kevin", likes: 13)
+        cell.configure(photo: UIImage(named: "restaurant_1")!, name: "Kevin", likes: 13)
 
 
         return cell
