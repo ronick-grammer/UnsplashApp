@@ -11,15 +11,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = ViewController()
+//        let nav = UINavigationController(rootViewController: SearchViewController())
+//        nav.navigationBar.backgroundColor = .white
+//        window?.rootViewController = nav
         window?.backgroundColor = .white
         window?.makeKeyAndVisible()
         
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        
+        // redirect url 처리
+        guard let url = URLContexts.first?.url else { return }
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }
+        guard let authorization_code = components.queryItems?.first(where: { $0.name == "code" })?.value else { return }
+        
+        AuthManager.shared.signIn(code: authorization_code)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
