@@ -25,7 +25,7 @@
 			<string>ronick.UnsplashPhoto</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ronick.UnsplashPhoto</string>
+				<string>ronick.UnsplashPhotoApp</string>
 			</array>
 		</dict>
 	</array>

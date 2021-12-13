@@ -15,7 +15,7 @@ class AuthManager {
     var token: String?
     
     var loggedIn = PublishSubject<Bool>()
-    
+    var loading = PublishSubject<Bool>()
     let disposeBag = DisposeBag()
     
     var user: User?
@@ -26,6 +26,7 @@ class AuthManager {
     
     func signIn(code authorizationCode: String) {
         
+        loading.onNext(true)
         let param = AuthorizationRequest(
             client_id: URL.access_key,
             client_secret: URL.secret_key,
@@ -53,6 +54,7 @@ class AuthManager {
                 
                 self.fetchUserProfile(accessToken: accessToken)
             }).disposed(by: disposeBag)
+        
     }
     
     private func fetchUserProfile(accessToken: String?) {
@@ -72,6 +74,7 @@ class AuthManager {
                 return json["username"] as? String
             }.subscribe(onNext: { username in
                 guard let username = username else { return }
+                
                 self.fetchUser(username: username)
             }).disposed(by: disposeBag)
         
@@ -85,7 +88,9 @@ class AuthManager {
         URLRequest.load(resource: Resource<User>.init(url: url))
             .subscribe(onNext: { user in
                 self.user = user
+                
                 self.loggedIn.onNext(true)
+                self.loading.onNext(false)
             }).disposed(by: disposeBag)
         
     }

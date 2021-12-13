@@ -13,7 +13,7 @@ extension URL {
     
     static let access_key = "-QicJj3Ux8TOcMPwQ2W9tzr_hQx8cJyjMIZMcNpK1sM"
 
-    static let redirect_uri = "ronick.UnsplashPhoto://callback"
+    static let redirect_uri = "ronick.UnsplashPhotoApp://callback"
     
     static let secret_key = "DZ1QT-0B2V5Dus46u7_hguKGw92PUbDshIyCEGlrHdo"
     
