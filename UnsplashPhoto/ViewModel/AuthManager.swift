@@ -12,7 +12,7 @@ class AuthManager {
     
     static var shared = AuthManager()
     
-    private var token: String?
+    var token: String?
     
     var loggedIn = PublishSubject<Bool>()
     
@@ -50,7 +50,6 @@ class AuthManager {
                     .access_token
             }.subscribe(onNext: { accessToken in
                 self.token = accessToken
-                self.loggedIn.onNext(true)
                 
                 self.fetchUserProfile(accessToken: accessToken)
             }).disposed(by: disposeBag)
@@ -86,6 +85,7 @@ class AuthManager {
         URLRequest.load(resource: Resource<User>.init(url: url))
             .subscribe(onNext: { user in
                 self.user = user
+                self.loggedIn.onNext(true)
             }).disposed(by: disposeBag)
         
     }
