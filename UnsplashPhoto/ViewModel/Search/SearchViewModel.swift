@@ -7,9 +7,10 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class SearchViewModel {
-    var photos = PublishSubject<[Photo]>()
+    var photos = BehaviorRelay<[Photo]>.init(value: [])
     let disposeBag = DisposeBag()
     
     init() {
@@ -23,7 +24,8 @@ class SearchViewModel {
         URLRequest.load(resource: resource)
             .subscribe(onNext: { [weak self] photoResults in
                 
-                self?.photos.onNext(photoResults.results)
+                self?.photos.accept(photoResults.results)
+                
                 
             }).disposed(by: disposeBag)
     }
