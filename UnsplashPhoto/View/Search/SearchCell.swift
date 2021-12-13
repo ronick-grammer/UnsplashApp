@@ -124,29 +124,3 @@ class SearchCell: UITableViewCell {
         
     }
 }
-
-
-// MARK: - Preview
-
-#if DEBUG
-import SwiftUI
-
-struct SearchCell_Preview: PreviewProvider {
-    
-    static var previews: some View {
-        
-        UIViewPreview {
-            let cell = SearchCell()
-            
-//            cell.configure(photo: UIImageView(image: UIImage(named: "restaurant_1")!), name: "Kevin", likes: 13, liked: true)
-            
-            
-            return cell
-            
-        }.previewLayout(.fixed(width: 500, height: 300))
-        
-    }
-    
-}
-
-#endif
