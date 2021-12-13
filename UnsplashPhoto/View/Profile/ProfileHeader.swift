@@ -71,25 +71,3 @@ class ProfileHeader: UICollectionReusableView {
         self.profileName.text = name
     }
 }
-
-
-#if DEBUG
-import SwiftUI
-
-struct ProfileHeader_Preview: PreviewProvider {
-    
-    static var previews: some View {
-        
-        UIViewPreview {
-            
-            let view = ProfileHeader()
-//            view.configure(profileImage: UIImage(named: "restaurant_1")!, name: "Ronick")
-            
-            return view
-        }.previewLayout(.fixed(width: 300, height: 100))
-        
-    }
-    
-}
-
-#endif

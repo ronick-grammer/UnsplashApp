@@ -131,6 +131,8 @@ class ProfileViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         navigationController?.navigationBar.topItem?.title = "Profile"
+        navigationController?.navigationBar.topItem?.searchController = nil
+        navigationController?.navigationBar.topItem?.hidesSearchBarWhenScrolling = true
         viewModel.fetchLikedPhotos()
         
     }
@@ -242,28 +244,3 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: 130)
     }
 }
-
-
-#if DEBUG
-import SwiftUI
-
-struct ProfileViewController_Preview: PreviewProvider {
-    
-    static var previews: some View {
-        
-        UIViewControllerPreview {
-            
-            let vc =  ProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
-            
-            vc.collectionView.backgroundColor = .white
-            let nav = UINavigationController(rootViewController: vc)
-            
-            return nav
-            
-        }
-        
-    }
-    
-}
-
-#endif

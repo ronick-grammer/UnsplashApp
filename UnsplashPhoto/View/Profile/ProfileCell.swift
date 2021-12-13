@@ -46,7 +46,6 @@ class ProfileCell: UICollectionViewCell {
     private var likeButton: UIButton = {
         let button = UIButton()
         button.imageView?.contentMode = .scaleAspectFit
-//        button.translatesAutoresizingMaskIntoConstraints = false
 
         return button
     } ()
@@ -119,6 +118,7 @@ class ProfileCell: UICollectionViewCell {
                 self?.likes.text = String(photoInstance.likes)
                 self?.liked = photoInstance.liked_by_user
                 
+                // 좋아요 상태
                 self?.likeButton.setImage(
                     photoInstance.liked_by_user ? UIImage(systemName: "bolt.heart.fill")! : UIImage(systemName: "bolt.heart")!,
                     for: .normal
@@ -133,25 +133,3 @@ class ProfileCell: UICollectionViewCell {
     }
     
 }
-
-#if DEBUG
-import SwiftUI
-
-struct ProfileCell_Preview: PreviewProvider {
-    
-    static var previews: some View {
-        
-        UIViewPreview {
-            
-            let cell = ProfileCell()
-//            cell.configure(photo: UIImage(named: "restaurant_1")!, name: "Nicolas Lobos", likes: 53)
-//
-            return cell
-            
-        }.previewLayout(.fixed(width: 300, height: 300))
-        
-    }
-    
-}
-
-#endif
