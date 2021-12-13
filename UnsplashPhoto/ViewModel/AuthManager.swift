@@ -95,4 +95,10 @@ class AuthManager {
         
     }
     
+    func signOut() {
+        token = nil
+        user = nil
+        loggedIn.onNext(false)
+    }
+    
 }
