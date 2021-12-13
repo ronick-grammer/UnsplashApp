@@ -8,13 +8,17 @@
 import Foundation
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class SearchCell: UITableViewCell {
     
+    var viewModel: SearchCellViewModel?
+    let disposeBag = DisposeBag()
     
     private var ownerName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: label.font.fontName, size: 25)
+        label.font = UIFont(name: label.font.fontName, size: 22)
         label.textColor = .black
         
         return label
@@ -30,13 +34,12 @@ class SearchCell: UITableViewCell {
     }()
     
     // 좋아요 이미지
-    private var likeImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "bolt.heart.fill")!)
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+    private var likeButton: UIButton = {
+        let button = UIButton()
+        button.imageView?.contentMode = .scaleAspectFit
         
-        return imageView
-    } ()
+        return button
+    }()
     
     private var vStackView: UIStackView = {
         let stackView = UIStackView()
@@ -50,12 +53,13 @@ class SearchCell: UITableViewCell {
         
         return stackView
     }()
- 
+    
+    var liked = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        setUpLayout()
+        setUp()
     }
     
     required init?(coder: NSCoder) {
@@ -63,30 +67,62 @@ class SearchCell: UITableViewCell {
         
     }
     
-    private func setUpLayout() {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        backgroundView = nil
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 500, left: 0, bottom: 800, right: 0))
+    }
+    
+    private func setUp() {
+        contentView.isUserInteractionEnabled = true
         backgroundView?.contentMode = .scaleAspectFill
         addSubview(vStackView)
         
         vStackView.snp.makeConstraints { maker in
             maker.top.leading.equalToSuperview().offset(20)
-            maker.width.equalToSuperview().dividedBy(4)
+            maker.width.equalToSuperview().dividedBy(3)
         }
 
         vStackView.addArrangedSubview(ownerName)
         vStackView.addArrangedSubview(likes)
-        vStackView.addArrangedSubview(likeImage)
+        vStackView.addArrangedSubview(likeButton)
         
-        likeImage.snp.makeConstraints { maker in
+        likeButton.snp.makeConstraints { maker in
             maker.width.height.equalTo(25)
         }
+        
+        likeButton.addTarget(self, action: #selector(toggleLike(_:)), for: .touchUpInside)
     }
     
-    func configure(photo: UIImage, name: String, likes: Int) {
-        backgroundView = UIImageView(image: photo)
-        self.ownerName.text = name
-        self.likes.text = String(likes)
+    func configure(photo: Photo) {
+        
+        viewModel = SearchCellViewModel(photo: photo)
+        backgroundView = nil
+        viewModel?.photo.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] photo in
+
+                self?.backgroundView = photo.photo
+                self?.ownerName.text = photo.user.name
+                self?.likes.text = String(photo.likes)
+                self?.liked = photo.liked_by_user
+                
+                self?.likeButton.setImage(
+                    UIImage(systemName: photo.liked_by_user ? "bolt.heart.fill" : "bolt.heart")!,
+                    for: .normal
+                )
+
+            }).disposed(by: disposeBag)
     }
     
+    @objc func toggleLike(_ sender: UIButton) {
+        liked ? viewModel?.unlike() : viewModel?.like()
+        
+    }
 }
 
 
@@ -102,7 +138,8 @@ struct SearchCell_Preview: PreviewProvider {
         UIViewPreview {
             let cell = SearchCell()
             
-            cell.configure(photo: UIImage(named: "restaurant_1")!, name: "Kevin", likes: 13)
+//            cell.configure(photo: UIImageView(image: UIImage(named: "restaurant_1")!), name: "Kevin", likes: 13, liked: true)
+            
             
             return cell
             

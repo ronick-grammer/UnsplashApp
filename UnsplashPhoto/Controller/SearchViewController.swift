@@ -7,42 +7,62 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SearchViewController: UITableViewController {
     
     private let cellIdentifier = "SearchCell"
     
     private var searchController = UISearchController()
+
+    private let disposeBag = DisposeBag()
     
-    private var barButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem()
-        barButtonItem.title = "로그인"
-        
-        return barButtonItem
-    }()
-    
-    
+    private var searchViewModel = SearchViewModel()
     
     override func viewDidLoad() {
 
-
+        tableView.dataSource = nil
         tableView.delegate = self
-        tableView.dataSource = self
+        
         tableView.register(SearchCell.self, forCellReuseIdentifier: cellIdentifier)
         
+        tableView.allowsSelection = false
+        
         navigationItem.searchController = searchController
-        navigationItem.title = "Search"
-        navigationItem.rightBarButtonItem = barButton
         navigationItem.hidesSearchBarWhenScrolling = false
         
         setUpSearchView()
         
+        AuthManager.shared.loggedIn
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+
+                self?.tableView.reloadData()
+
+            }).disposed(by: disposeBag)
         
+        searchViewModel.photos
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+
+                self?.tableView.reloadData()
+
+            }).disposed(by: disposeBag)
+        
+        searchViewModel.photos
+            .observeOn(MainScheduler.instance)
+            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self)) { index, item, cell in
+
+                cell.configure(photo: item)
+
+            }.disposed(by: disposeBag)
     }
     
-    private func setUpLayout() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        
+        navigationController?.navigationBar.topItem?.title = "Search"
     }
     
     private func setUpSearchView(){
@@ -54,61 +74,19 @@ class SearchViewController: UITableViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         
         searchController.searchBar.placeholder = "사진을 검색하세요"
+        searchController.searchBar.returnKeyType = .search
         
     }
-    
+
 }
 
-// MARK: - UITableViewControllerDelegate
-extension SearchViewController{
-    
-}
-
-// MARK: - UITableViewDataSource
-extension SearchViewController{
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 11
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 10
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.clear
-        
-        return headerView
-    }
-    
+extension SearchViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return 300
     }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SearchCell
-        
-        cell.configure(photo: UIImage(named: "restaurant_1")!, name: "Kevin", likes: 13)
-
-
-        return cell
-    }
-
 }
-
-
-
-
 
 // MARK: - UISearchControllerDelegate
 extension SearchViewController: UISearchControllerDelegate {
@@ -119,14 +97,16 @@ extension SearchViewController: UISearchControllerDelegate {
 extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        
+
     }
     
 }
 
 // MARK: - UISearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchViewModel.searchImage(query: searchBar.text ?? "Nature")
+    }
 }
 
 
