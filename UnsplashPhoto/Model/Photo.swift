@@ -11,8 +11,10 @@ struct PhotoResults: Decodable {
     let results: [Photo]
 }
 
-struct Photo: Decodable {
-    let likes: Int
+struct Photo: Decodable, Identifiable {
+    let id: String
+    var likes: Int
+    var liked_by_user: Bool
     let user: User
     let urls: PhotoUrl
     

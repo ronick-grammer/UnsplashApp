@@ -8,6 +8,7 @@
 import Foundation
 
 struct User: Decodable {
+    let username: String
     let name: String
     let profile_image: ProfileImage
 }

@@ -17,8 +17,14 @@ extension URL {
     
     static let secret_key = "DZ1QT-0B2V5Dus46u7_hguKGw92PUbDshIyCEGlrHdo"
     
+    static let scope = "public+write_likes"
+    
     static func urlForSearchPhotosAPI(query: String) -> URL? {
         return URL(string: "\(base_url)/search/photos?client_id=\(access_key)&page=1&query=\(query)" )
+    }
+    
+    static func urlForPhoto(photoID: String) -> URL? {
+        return URL(string: "\(base_url)/photos/\(photoID)?client_id=\(access_key)")
     }
     
     static func urlForLogin() -> URL? {
@@ -29,7 +35,7 @@ extension URL {
         }
         
         print("redirect_uri: ", redirect_uri)
-        return URL(string: "https://unsplash.com/oauth/authorize?client_id=\(access_key)&redirect_uri=\(redirect_uri)&response_type=code")
+        return URL(string: "https://unsplash.com/oauth/authorize?client_id=\(access_key)&redirect_uri=\(redirect_uri)&response_type=code&scope=\(scope)")
     }
     
     static func urlForAccessToken() -> URL? {
@@ -43,4 +49,13 @@ extension URL {
     static func urlForUserPublicProfile(username: String) -> URL? {
         return URL(string: "\(base_url)/users/\(username)?client_id=\(access_key)")
     }
+    
+    static func urlForLikePhoto(photoID: String) -> URL? {
+        return URL(string: "\(base_url)/photos/\(photoID)/like")
+    }
+    
+    static func urlForLikedPhotos(username: String) -> URL? {
+        return URL(string: "\(base_url)/users/\(username)/likes")
+    }
+    
 }
