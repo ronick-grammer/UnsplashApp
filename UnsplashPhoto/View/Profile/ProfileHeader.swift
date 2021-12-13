@@ -11,8 +11,8 @@ import SnapKit
 
 class ProfileHeader: UICollectionReusableView {
     
-    private var profileImage: UIImageView = {
-        let imageView = UIImageView()
+    private var profileImage: WebImageView = {
+        let imageView = WebImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 20
         imageView.clipsToBounds = true
@@ -66,8 +66,8 @@ class ProfileHeader: UICollectionReusableView {
         }
     }
     
-    func configure(profileImage: UIImage, name: String) {
-        self.profileImage.image = profileImage
+    func configure(profileImageURL: String, name: String) {
+        self.profileImage.imageUrl = profileImageURL
         self.profileName.text = name
     }
 }
@@ -83,7 +83,7 @@ struct ProfileHeader_Preview: PreviewProvider {
         UIViewPreview {
             
             let view = ProfileHeader()
-            view.configure(profileImage: UIImage(named: "restaurant_1")!, name: "Ronick")
+//            view.configure(profileImage: UIImage(named: "restaurant_1")!, name: "Ronick")
             
             return view
         }.previewLayout(.fixed(width: 300, height: 100))

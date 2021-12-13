@@ -8,19 +8,24 @@
 import Foundation
 import UIKit
 import SnapKit
+import RxSwift
 
 class ProfileViewController: UICollectionViewController {
+    
+    private var viewModel = ProfileViewModel()
+    private let disposeBag = DisposeBag()
     
     private let cellIdentifier = "ProfileCell"
     private let headerIdentifier = "ProfileHeader"
     
-    private var isLoggedIn = true
-    
-    private var barButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem()
-        barButtonItem.title = "로그아웃"
-        
-        return barButtonItem
+    lazy var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        indicator.center = view.center
+        indicator.color = .black
+        indicator.style = .large
+        indicator.hidesWhenStopped = true
+        return indicator
     }()
     
     private var loginImage: UIImageView = {
@@ -71,10 +76,13 @@ class ProfileViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Profile"
-        
+        collectionView.allowsSelection = false
+        view.backgroundColor = .red
         collectionView.delegate = self
         collectionView.dataSource = self
+        vStackView.isHidden = false
+        
+        collectionView.backgroundColor = .white
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         
@@ -82,21 +90,48 @@ class ProfileViewController: UICollectionViewController {
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
         setUpLoginRequestLayout()
+        
+        // 로그인 처리 로딩 표시
+        AuthManager.shared.loading.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loading in
+                if loading {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
+        
+        // 로그인, 로그아웃 상태에 따라 화면 세팅
+        AuthManager.shared.loggedIn.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loggedIn in
+                if loggedIn { // 로그인 상태이면 사진목록과 로그아웃 버튼 활성화
+                    self?.collectionView.delegate = self
+                    self?.collectionView.dataSource = self
+                    self?.vStackView.isHidden = true
+                    self?.viewModel.fetchLikedPhotos()
+                } else { // 로그아웃 상태이면 사진목록과 로그아웃 버튼 비활성화
+                    self?.collectionView.delegate = nil
+                    self?.collectionView.dataSource = nil
+                    self?.vStackView.isHidden = false
+                }
+                
+                self?.collectionView.reloadData()
+                
+            }).disposed(by: disposeBag)
+        
+        viewModel.likedPhotos.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.collectionView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        loginButton.addTarget(self, action: #selector(btn_login), for: .touchUpInside)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        if isLoggedIn { // 로그인 상태이면 사진목록과 로그아웃 버튼 활성화
-            collectionView.delegate = self
-            collectionView.dataSource = self
-            navigationItem.rightBarButtonItem = barButton
-            vStackView.isHidden = true
-        } else { // 로그아웃 상태이면 사진목록과 로그아웃 버튼 비활성화
-            collectionView.delegate = nil
-            collectionView.dataSource = nil
-            navigationItem.rightBarButtonItem = nil
-            vStackView.isHidden = false
-        }
+        navigationController?.navigationBar.topItem?.title = "Profile"
+        viewModel.fetchLikedPhotos()
         
     }
     
@@ -104,7 +139,9 @@ class ProfileViewController: UICollectionViewController {
         view.addSubview(vStackView)
         
         vStackView.snp.makeConstraints { maker in
-            maker.centerX.centerY.equalToSuperview()
+//            maker.center.equalToSuperview()
+            maker.centerX.equalToSuperview()
+            maker.centerY.equalToSuperview().offset(-50)
         }
         
         vStackView.addArrangedSubview(loginImage)
@@ -115,6 +152,17 @@ class ProfileViewController: UICollectionViewController {
         loginImage.snp.makeConstraints { maker in
             maker.height.width.equalTo(50)
         }
+        
+        view.addSubview(indicator)
+        indicator.snp.makeConstraints { maker in
+            maker.centerX.equalToSuperview()
+            maker.centerY.equalToSuperview().offset(-50)
+        }
+    }
+    
+    @objc func btn_login() {
+        guard let url = URL.urlForLogin() else { return }
+        UIApplication.shared.open(url)
     }
 
 }
@@ -129,26 +177,30 @@ extension ProfileViewController{
 extension ProfileViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return 10
-        
+
+        return viewModel.likedPhotos.value.count
+
     }
-    
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ProfileCell
         
-        cell.configure(photo: UIImage(named: "restaurant_1")!, name: "Kevin", likes: 24)
-        
+        cell.configure(photo: viewModel.likedPhotos.value[indexPath.row])
+
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! ProfileHeader
         
-        header.configure(profileImage: UIImage(named: "restaurant_1")!, name: "Ronick Kim")
+        AuthManager.shared.loggedIn.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { loggedIn in
+                if loggedIn {
+                    guard let user = AuthManager.shared.user else { return }
+                    header.configure(profileImageURL: user.profile_image.medium, name: user.name)
+                }
+            }).disposed(by: disposeBag)
         
         return header
         
@@ -184,9 +236,9 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
+
         let width = collectionView.frame.width
-        
+
         return CGSize(width: width, height: 130)
     }
 }
@@ -205,7 +257,6 @@ struct ProfileViewController_Preview: PreviewProvider {
             
             vc.collectionView.backgroundColor = .white
             let nav = UINavigationController(rootViewController: vc)
-            
             
             return nav
             
