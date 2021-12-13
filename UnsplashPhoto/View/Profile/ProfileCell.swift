@@ -8,11 +8,17 @@
 import Foundation
 import UIKit
 import SnapKit
+import RxSwift
 
 class ProfileCell: UICollectionViewCell {
     
-    private var photo: UIImageView = {
-        let imageView = UIImageView()
+    private var viewModel: ProfileCellViewModel?
+    private let disposeBag = DisposeBag()
+    
+    private var liked = false
+    
+    private var photo: WebImageView = {
+        let imageView = WebImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
@@ -22,9 +28,9 @@ class ProfileCell: UICollectionViewCell {
 
     private var ownerName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: label.font.fontName, size: 25)
+        label.font = UIFont(name: label.font.fontName, size: 22)
         label.textColor = .black
-
+        
         return label
     }()
 
@@ -36,15 +42,15 @@ class ProfileCell: UICollectionViewCell {
 
         return label
     }()
+    
+    private var likeButton: UIButton = {
+        let button = UIButton()
+        button.imageView?.contentMode = .scaleAspectFit
+//        button.translatesAutoresizingMaskIntoConstraints = false
 
-    // 좋아요 이미지
-    private var likeImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "bolt.heart.fill")!)
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        return imageView
+        return button
     } ()
+    
 
     private var vStackView: UIStackView = {
         let stackView = UIStackView()
@@ -73,35 +79,57 @@ class ProfileCell: UICollectionViewCell {
 
 
     private func setUpLayout() {
+        contentView.isUserInteractionEnabled = true
+        
         contentView.addSubview(photo)
         contentView.addSubview(vStackView)
 
         photo.snp.makeConstraints { maker in
             maker.top.leading.trailing.equalToSuperview()
             maker.bottom.equalToSuperview().dividedBy(1.17)
-//            maker.height.equalTo(300)
         }
-
+        
         vStackView.addArrangedSubview(ownerName)
         vStackView.addArrangedSubview(likes)
-        vStackView.addArrangedSubview(likeImage)
-
-        likeImage.snp.makeConstraints { maker in
+        vStackView.addArrangedSubview(likeButton)
+        
+        likeButton.snp.makeConstraints { maker in
             maker.width.height.equalTo(25)
         }
         
         vStackView.snp.makeConstraints { maker in
-            maker.width.equalToSuperview().dividedBy(1.5)
+            maker.width.equalToSuperview().dividedBy(1.3)
             maker.centerX.equalToSuperview()
-            maker.centerY.equalTo(photo.snp.bottom)
+            maker.centerY.equalTo(photo.snp.bottom).offset(-25)
         }
-
+        
+        likeButton.addTarget(self, action: #selector(toggleLike(_:)), for: .touchUpInside)
+        
     }
 
-    func configure(photo: UIImage, name: String, likes: Int) {
-        self.photo.image = photo
-        self.ownerName.text = name
-        self.likes.text = String(likes)
+    func configure(photo: Photo) {
+        
+        viewModel = ProfileCellViewModel(photo: photo)
+        
+        viewModel?.photo.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] photoInstance in
+                
+                self?.photo.imageUrl = photoInstance.photo.imageUrl
+                self?.ownerName.text = photoInstance.user.name
+                self?.likes.text = String(photoInstance.likes)
+                self?.liked = photoInstance.liked_by_user
+                
+                self?.likeButton.setImage(
+                    photoInstance.liked_by_user ? UIImage(systemName: "bolt.heart.fill")! : UIImage(systemName: "bolt.heart")!,
+                    for: .normal
+                )
+                
+            }).disposed(by: disposeBag)
+        
+    }
+    
+    @objc func toggleLike(_ sender: UIButton) {
+        liked ? viewModel?.unlike() : viewModel?.like()
     }
     
 }
@@ -116,8 +144,8 @@ struct ProfileCell_Preview: PreviewProvider {
         UIViewPreview {
             
             let cell = ProfileCell()
-            cell.configure(photo: UIImage(named: "restaurant_1")!, name: "Nicolas Lobos", likes: 53)
-         
+//            cell.configure(photo: UIImage(named: "restaurant_1")!, name: "Nicolas Lobos", likes: 53)
+//
             return cell
             
         }.previewLayout(.fixed(width: 300, height: 300))
