@@ -22,6 +22,7 @@ class ViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 탭뷰 설정
         let search = templateTabViewController(vc: SearchViewController(), unselectedImage: UIImage(systemName: "magnifyingglass"), selectedImage: UIImage(systemName: "magnifyingglass.fill") )
         
         let profile = templateTabViewController(vc: ProfileViewController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedImage: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
@@ -67,7 +68,7 @@ class ViewController: UITabBarController {
     }
     
     @objc func btn_logout() {
-        print("로그아웃")
+        AuthManager.shared.signOut()
     }
     
 }
