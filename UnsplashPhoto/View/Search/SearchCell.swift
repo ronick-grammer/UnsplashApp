@@ -16,6 +16,15 @@ class SearchCell: UITableViewCell {
     var viewModel: SearchCellViewModel?
     let disposeBag = DisposeBag()
     
+    private var photo: WebImageView = {
+        let imageView = WebImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
     private var ownerName: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: label.font.fontName, size: 22)
@@ -70,7 +79,6 @@ class SearchCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        backgroundView = nil
     }
     
     override func layoutSubviews() {
@@ -80,8 +88,12 @@ class SearchCell: UITableViewCell {
     
     private func setUp() {
         contentView.isUserInteractionEnabled = true
-        backgroundView?.contentMode = .scaleAspectFill
+        addSubview(photo)
         addSubview(vStackView)
+        
+        photo.snp.makeConstraints { maker in
+            maker.width.height.equalToSuperview()
+        }
         
         vStackView.snp.makeConstraints { maker in
             maker.top.leading.equalToSuperview().offset(20)
@@ -102,11 +114,10 @@ class SearchCell: UITableViewCell {
     func configure(photo: Photo) {
         
         viewModel = SearchCellViewModel(photo: photo)
-        backgroundView = nil
         viewModel?.photo.observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] photo in
 
-                self?.backgroundView = photo.photo
+                self?.photo.imageUrl = photo.urls.regular
                 self?.ownerName.text = photo.user.name
                 self?.likes.text = String(photo.likes)
                 self?.liked = photo.liked_by_user

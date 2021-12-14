@@ -1,20 +1,17 @@
 # 오누이 과제전형- Unsplash App
 
 ### 기술스택 
-> ### 아키텍처 패턴: MVVM
-> ### UI 레이아웃 구성 : 코드 - SnapKit
-> ### 반응형 프로그래밍: RxSwift, RxCocoa
+> 아키텍처 패턴: MVVM
+
+> UI 레이아웃 구성 : 코드 - SnapKit
+
+> 반응형 프로그래밍: RxSwift, RxCocoa
 
 <br>
 
 ### 해결하지 못한 사항
-> ### 페이징 처리와 무한 스크롤
+> 페이징 처리와 무한 스크롤
 
-
-<br>
-
-### 버그
-> ### Image Flickering: Reusable Cell 이 로드될 때마다 API 호출로 인한 이미지가 초기화 되면서 깜빡거림 현상 발생
 
 <br>
 
@@ -83,7 +80,7 @@
 ├── SceneDelegate.swift
 ├── AppDelegate.swift
 ├── Info.plist
-├── Base.lproj
-│   │
-│   └── LaunchScreen.storyboard
+└── Base.lproj
+    │
+    └── LaunchScreen.storyboard
 ```
