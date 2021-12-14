@@ -18,7 +18,7 @@ class ProfileViewController: UICollectionViewController {
     private let cellIdentifier = "ProfileCell"
     private let headerIdentifier = "ProfileHeader"
     
-    lazy var indicator: UIActivityIndicatorView = {
+    private lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         indicator.center = view.center
@@ -76,12 +76,9 @@ class ProfileViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.allowsSelection = false
-        view.backgroundColor = .red
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        vStackView.isHidden = false
+        setUpLayout(loggedIn: AuthManager.shared.loggedIn.value)
         
+        collectionView.allowsSelection = false
         collectionView.backgroundColor = .white
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
@@ -104,24 +101,18 @@ class ProfileViewController: UICollectionViewController {
         // 로그인, 로그아웃 상태에 따라 화면 세팅
         AuthManager.shared.loggedIn.observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] loggedIn in
-                if loggedIn { // 로그인 상태이면 사진목록과 로그아웃 버튼 활성화
-                    self?.collectionView.delegate = self
-                    self?.collectionView.dataSource = self
-                    self?.vStackView.isHidden = true
-                    self?.viewModel.fetchLikedPhotos()
-                } else { // 로그아웃 상태이면 사진목록과 로그아웃 버튼 비활성화
-                    self?.collectionView.delegate = nil
-                    self?.collectionView.dataSource = nil
-                    self?.vStackView.isHidden = false
-                }
                 
+                self?.setUpLayout(loggedIn: loggedIn)
                 self?.collectionView.reloadData()
                 
             }).disposed(by: disposeBag)
         
+        // 좋아요 리스트 체크
         viewModel.likedPhotos.observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
+                
                 self?.collectionView.reloadData()
+                
             }).disposed(by: disposeBag)
         
         loginButton.addTarget(self, action: #selector(btn_login), for: .touchUpInside)
@@ -135,6 +126,20 @@ class ProfileViewController: UICollectionViewController {
         navigationController?.navigationBar.topItem?.hidesSearchBarWhenScrolling = true
         viewModel.fetchLikedPhotos()
         
+    }
+    
+    private func setUpLayout(loggedIn: Bool) {
+        
+        if loggedIn { // 로그인 상태이면 사진목록과 로그아웃 버튼 활성화
+            collectionView.delegate = self
+            collectionView.dataSource = self
+            vStackView.isHidden = true
+            viewModel.fetchLikedPhotos()
+        } else { // 로그아웃 상태이면 사진목록과 로그아웃 버튼 비활성화
+            collectionView.delegate = nil
+            collectionView.dataSource = nil
+            vStackView.isHidden = false
+        }
     }
     
     private func setUpLoginRequestLayout() {

@@ -7,21 +7,21 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class AuthManager {
     
     static var shared = AuthManager()
     
     var token: String?
+    var user: User?
     
-    var loggedIn = PublishSubject<Bool>()
+    var loggedIn: BehaviorRelay<Bool>
     var loading = PublishSubject<Bool>()
     let disposeBag = DisposeBag()
     
-    var user: User?
-    
     private init() {
-        loggedIn.onNext(false)
+        loggedIn = BehaviorRelay<Bool>.init(value: false)
     }
     
     func signIn(code authorizationCode: String) {
@@ -89,7 +89,7 @@ class AuthManager {
             .subscribe(onNext: { user in
                 self.user = user
                 
-                self.loggedIn.onNext(true)
+                self.loggedIn.accept(true)
                 self.loading.onNext(false)
             }).disposed(by: disposeBag)
         
@@ -98,7 +98,7 @@ class AuthManager {
     func signOut() {
         token = nil
         user = nil
-        loggedIn.onNext(false)
+        loggedIn.accept(false)
     }
     
 }
