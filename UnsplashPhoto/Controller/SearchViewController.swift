@@ -62,6 +62,8 @@ class SearchViewController: UITableViewController {
         navigationController?.navigationBar.topItem?.title = "Search"
         navigationController?.navigationBar.topItem?.searchController = searchController
         navigationController?.navigationBar.topItem?.hidesSearchBarWhenScrolling = false
+        
+        tableView.reloadData()
     }
     
     private func setUpSearchView(){
