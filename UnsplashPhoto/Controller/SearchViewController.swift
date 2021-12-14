@@ -21,12 +21,10 @@ class SearchViewController: UITableViewController {
     private var searchViewModel = SearchViewModel()
     
     override func viewDidLoad() {
-
+        
         tableView.dataSource = nil
         tableView.delegate = self
-        
         tableView.register(SearchCell.self, forCellReuseIdentifier: cellIdentifier)
-        
         tableView.allowsSelection = false
         
         setUpSearchView()
@@ -109,27 +107,3 @@ extension SearchViewController: UISearchBarDelegate {
         searchViewModel.searchImage(query: searchBar.text ?? "Nature")
     }
 }
-
-
-// MARK: - Preview
-#if DEBUG
-
-import SwiftUI
-
-struct SearchViewController_Preview: PreviewProvider {
-    
-    static var previews: some View {
-        
-        UIViewControllerPreview {
-            let navController = UINavigationController(rootViewController: SearchViewController())
-            navController.navigationBar.backgroundColor = .white
-            return navController
-            
-        }
-        
-    }
-    
-}
-
-
-#endif
