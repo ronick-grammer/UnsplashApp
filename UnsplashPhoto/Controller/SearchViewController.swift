@@ -29,9 +29,6 @@ class SearchViewController: UITableViewController {
         
         tableView.allowsSelection = false
         
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        
         setUpSearchView()
         
         AuthManager.shared.loggedIn
@@ -63,6 +60,8 @@ class SearchViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.topItem?.title = "Search"
+        navigationController?.navigationBar.topItem?.searchController = searchController
+        navigationController?.navigationBar.topItem?.hidesSearchBarWhenScrolling = false
     }
     
     private func setUpSearchView(){
