@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - API URL 모음
 extension URL {
     
     static let base_url = "https://api.unsplash.com"
