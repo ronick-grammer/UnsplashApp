@@ -17,6 +17,8 @@
 		D481D0CD27680392001E6DBE /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CB27680392001E6DBE /* ProfileViewModel.swift */; };
 		D481D0CE27680392001E6DBE /* ProfileCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CC27680392001E6DBE /* ProfileCellViewModel.swift */; };
 		D481D0D0276803A1001E6DBE /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CF276803A1001E6DBE /* UserService.swift */; };
+		D482627727B943DE00131979 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D482627627B943DE00131979 /* ViewModelType.swift */; };
+		D482627927B94C6D00131979 /* ViewModelBindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D482627827B94C6D00131979 /* ViewModelBindableType.swift */; };
 		D48A3791275F984A0081B3A4 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48A3790275F984A0081B3A4 /* ProfileHeader.swift */; };
 		D4920E7A276636EE00A56145 /* SearchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4920E79276636EE00A56145 /* SearchCellViewModel.swift */; };
 		D4BF3176275F60910082867B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BF3175275F60910082867B /* ProfileViewController.swift */; };
@@ -46,6 +48,8 @@
 		D481D0CB27680392001E6DBE /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		D481D0CC27680392001E6DBE /* ProfileCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCellViewModel.swift; sourceTree = "<group>"; };
 		D481D0CF276803A1001E6DBE /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		D482627627B943DE00131979 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		D482627827B94C6D00131979 /* ViewModelBindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBindableType.swift; sourceTree = "<group>"; };
 		D48837522767A3E600676F67 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		D48837552767A95500676F67 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		D48837572767AD7600676F67 /* ProfileCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellViewModel.swift; sourceTree = "<group>"; };
@@ -165,6 +169,7 @@
 			children = (
 				D4D5DFDE275E015F00314F2E /* SearchViewController.swift */,
 				D4BF3175275F60910082867B /* ProfileViewController.swift */,
+				D482627827B94C6D00131979 /* ViewModelBindableType.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 				D4F8CD4D276726CA009D1D3F /* Profile */,
 				D4920E78276636CC00A56145 /* Search */,
 				D4CDB9FA2764CB73005ECC2E /* AuthManager.swift */,
+				D482627627B943DE00131979 /* ViewModelType.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -367,11 +373,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D482627727B943DE00131979 /* ViewModelType.swift in Sources */,
 				D40E5EB52761E6A5001EB14E /* Photo.swift in Sources */,
 				D481D0D0276803A1001E6DBE /* UserService.swift in Sources */,
 				D48A3791275F984A0081B3A4 /* ProfileHeader.swift in Sources */,
 				D4BF3176275F60910082867B /* ProfileViewController.swift in Sources */,
 				D40E5EBA27625DB8001EB14E /* WebImageView.swift in Sources */,
+				D482627927B94C6D00131979 /* ViewModelBindableType.swift in Sources */,
 				D4FD6AD7275DDD2A00E115A6 /* ViewController.swift in Sources */,
 				D4CDB9FB2764CB73005ECC2E /* AuthManager.swift in Sources */,
 				D40E5EB12761E690001EB14E /* URLRequest+Extensions.swift in Sources */,

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import RxSwift
-import RxCocoa
+//import RxCocoa
 
 class SearchViewController: UITableViewController {
     
@@ -19,6 +19,13 @@ class SearchViewController: UITableViewController {
     private let disposeBag = DisposeBag()
     
     private var searchViewModel = SearchViewModel()
+    
+    lazy var input = SearchViewModel.Input(
+        searchButtonClicked: searchController.searchBar.rx.searchButtonClicked.asObservable(),
+        searchQuery: searchController.searchBar.rx.text.asObservable()
+    )
+    
+    lazy var output = searchViewModel.transform(input: input)
     
     override func viewDidLoad() {
         
@@ -37,20 +44,28 @@ class SearchViewController: UITableViewController {
 
             }).disposed(by: disposeBag)
         
-        searchViewModel.photos
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-
-                self?.tableView.reloadData()
-
-            }).disposed(by: disposeBag)
+//        searchViewModel.photos
+//            .observeOn(MainScheduler.instance)
+//            .subscribe(onNext: { [weak self] _ in
+//                print("Check Test: reloadData")
+//                self?.tableView.reloadData()
+//
+//            }).disposed(by: disposeBag)
         
-        searchViewModel.photos
+//        searchViewModel.photos
+//            .observeOn(MainScheduler.instance)
+//            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self)) { index, item, cell in
+//                print("Check Test: tableView")
+//                cell.configure(photo: item)
+//
+//            }.disposed(by: disposeBag)
+//
+        
+        output.searchedPhotoes
             .observeOn(MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self)) { index, item, cell in
-
+                print("Check Test: tableView")
                 cell.configure(photo: item)
-
             }.disposed(by: disposeBag)
     }
     
@@ -67,7 +82,7 @@ class SearchViewController: UITableViewController {
     private func setUpSearchView(){
         searchController.delegate = self
         searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
+//        searchController.searchBar.delegate = self
         
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
@@ -102,8 +117,8 @@ extension SearchViewController: UISearchResultsUpdating {
 }
 
 // MARK: - UISearchBarDelegate
-extension SearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchViewModel.searchImage(query: searchBar.text ?? "Nature")
-    }
-}
+//extension SearchViewController: UISearchBarDelegate {
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        searchViewModel.searchImage(query: searchBar.text ?? "Nature")
+//    }
+//}
