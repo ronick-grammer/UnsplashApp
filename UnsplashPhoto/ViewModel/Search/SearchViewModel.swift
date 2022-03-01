@@ -21,11 +21,10 @@ class SearchViewModel: ViewModelType {
         let searchedPhotoes: Observable<[Photo]>
     }
     
-    var photos = BehaviorRelay<[Photo]>.init(value: [])
     var disposeBag = DisposeBag()
     
     init() {
-//        searchImage(query: "Nature")
+        
     }
     
     func transform(input: Input) -> Output {
@@ -33,13 +32,18 @@ class SearchViewModel: ViewModelType {
         var photoes: Observable<[Photo]>
         let searchText = BehaviorRelay<String?>(value: "Nature")
         
-        input.searchQuery.bind(to: searchText).disposed(by: disposeBag)
+        input.searchQuery.subscribe(onNext: { query in
+            if let query = query, !query.isEmpty {
+                searchText.accept(query)
+            }
+            
+        }).disposed(by: disposeBag)
         
         photoes = input.searchButtonClicked
             .flatMap { _ -> Observable<PhotoResults> in
-                return self.searchImage(query: searchText.value ?? "nature")
-            }.map { photoresults -> [Photo] in
-                return photoresults.results
+                return self.searchImage(query: searchText.value ?? "Nature")
+            }.map { photoResults -> [Photo] in
+                return photoResults.results
             }
             
         return Output(searchedPhotoes: photoes)

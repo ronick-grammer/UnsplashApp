@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import RxSwift
-//import RxCocoa
+import RxCocoa
 
 class SearchViewController: UITableViewController {
     
@@ -36,14 +36,6 @@ class SearchViewController: UITableViewController {
         
         setUpSearchView()
         
-        AuthManager.shared.loggedIn
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-
-                self?.tableView.reloadData()
-
-            }).disposed(by: disposeBag)
-        
 //        searchViewModel.photos
 //            .observeOn(MainScheduler.instance)
 //            .subscribe(onNext: { [weak self] _ in
@@ -60,13 +52,7 @@ class SearchViewController: UITableViewController {
 //
 //            }.disposed(by: disposeBag)
 //
-        
-        output.searchedPhotoes
-            .observeOn(MainScheduler.instance)
-            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self)) { index, item, cell in
-                print("Check Test: tableView")
-                cell.configure(photo: item)
-            }.disposed(by: disposeBag)
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +63,24 @@ class SearchViewController: UITableViewController {
         navigationController?.navigationBar.topItem?.hidesSearchBarWhenScrolling = false
         
         tableView.reloadData()
+    }
+    
+    private func bind() {
+        
+        AuthManager.shared.loggedIn
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+
+                self?.tableView.reloadData()
+
+            }).disposed(by: disposeBag)
+        
+        output.searchedPhotoes
+            .observeOn(MainScheduler.instance)
+            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self)) { index, item, cell in
+                print("Check Test: tableView")
+                cell.configure(photo: item)
+            }.disposed(by: disposeBag)
     }
     
     private func setUpSearchView(){
