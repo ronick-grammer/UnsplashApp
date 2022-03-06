@@ -11,8 +11,8 @@ import RxCocoa
 
 class SearchViewModel: ViewModelType {
     
-    
     struct Input {
+        let initialize: BehaviorSubject<Void>
         let searchButtonClicked: Observable<Void>
         let searchQuery: Observable<String?>
     }
@@ -22,10 +22,6 @@ class SearchViewModel: ViewModelType {
     }
     
     var disposeBag = DisposeBag()
-    
-    init() {
-        
-    }
     
     func transform(input: Input) -> Output {
         
@@ -39,13 +35,14 @@ class SearchViewModel: ViewModelType {
             
         }).disposed(by: disposeBag)
         
-        photoes = input.searchButtonClicked
+        let source = Observable.of(input.initialize.asObservable(), input.searchButtonClicked)
+        photoes = source.merge()
             .flatMap { _ -> Observable<PhotoResults> in
                 return self.searchImage(query: searchText.value ?? "Nature")
             }.map { photoResults -> [Photo] in
                 return photoResults.results
             }
-            
+        
         return Output(searchedPhotoes: photoes)
     }
     
@@ -56,47 +53,4 @@ class SearchViewModel: ViewModelType {
         
         return URLRequest.load(resource: resource)
     }
-    
-//    func searchImage(query: String) -> [Photo]{
-//
-//        guard let url = URL.urlForSearchPhotosAPI(query: query) else { return }
-//        let resource = Resource<PhotoResults>(url: url)
-//        URLRequest.load(resource: resource)
-//            .subscribe(onNext: { [weak self] photoResults in
-//
-//                self?.photos.accept(photoResults.results)
-//
-//
-//            })
-//            .disposed(by: disposeBag)
-//    }
-
 }
-
-
-
-
-//class SearchViewModel{
-//
-//    var photos = BehaviorRelay<[Photo]>.init(value: [])
-//    let disposeBag = DisposeBag()
-//
-//    init() {
-//        searchImage(query: "Nature")
-//    }
-//
-//    func searchImage(query: String) {
-//
-//        guard let url = URL.urlForSearchPhotosAPI(query: query) else { return }
-//        let resource = Resource<PhotoResults>(url: url)
-//        URLRequest.load(resource: resource)
-//            .subscribe(onNext: { [weak self] photoResults in
-//
-//                self?.photos.accept(photoResults.results)
-//
-//
-//            }).disposed(by: disposeBag)
-//    }
-//
-//}
-//

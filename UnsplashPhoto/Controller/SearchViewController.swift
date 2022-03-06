@@ -21,6 +21,7 @@ class SearchViewController: UITableViewController {
     private var searchViewModel = SearchViewModel()
     
     lazy var input = SearchViewModel.Input(
+        initialize: BehaviorSubject<Void>.init(value: Void()),
         searchButtonClicked: searchController.searchBar.rx.searchButtonClicked.asObservable(),
         searchQuery: searchController.searchBar.rx.text.asObservable()
     )
@@ -35,23 +36,6 @@ class SearchViewController: UITableViewController {
         tableView.allowsSelection = false
         
         setUpSearchView()
-        
-//        searchViewModel.photos
-//            .observeOn(MainScheduler.instance)
-//            .subscribe(onNext: { [weak self] _ in
-//                print("Check Test: reloadData")
-//                self?.tableView.reloadData()
-//
-//            }).disposed(by: disposeBag)
-        
-//        searchViewModel.photos
-//            .observeOn(MainScheduler.instance)
-//            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self)) { index, item, cell in
-//                print("Check Test: tableView")
-//                cell.configure(photo: item)
-//
-//            }.disposed(by: disposeBag)
-//
         bind()
     }
     
@@ -76,14 +60,13 @@ class SearchViewController: UITableViewController {
             }).disposed(by: disposeBag)
         
         output.searchedPhotoes
-            .observeOn(MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self)) { index, item, cell in
                 print("Check Test: tableView")
                 cell.configure(photo: item)
             }.disposed(by: disposeBag)
     }
     
-    private func setUpSearchView(){
+    private func setUpSearchView() {
         searchController.delegate = self
         searchController.searchResultsUpdater = self
 //        searchController.searchBar.delegate = self
