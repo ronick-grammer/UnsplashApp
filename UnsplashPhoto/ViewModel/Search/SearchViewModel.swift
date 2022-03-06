@@ -26,19 +26,13 @@ class SearchViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         
         var photoes: Observable<[Photo]>
-        let searchText = BehaviorRelay<String?>(value: "Nature")
-        
-        input.searchQuery.subscribe(onNext: { query in
-            if let query = query, !query.isEmpty {
-                searchText.accept(query)
-            }
-            
-        }).disposed(by: disposeBag)
+        var query = ""
+        input.searchQuery.bind(onNext: { query = $0 ?? "Nature" })
         
         let source = Observable.of(input.initialize.asObservable(), input.searchButtonClicked)
         photoes = source.merge()
             .flatMap { _ -> Observable<PhotoResults> in
-                return self.searchImage(query: searchText.value ?? "Nature")
+                return self.searchImage(query: query.isEmpty ? "Nature" : query)
             }.map { photoResults -> [Photo] in
                 return photoResults.results
             }
