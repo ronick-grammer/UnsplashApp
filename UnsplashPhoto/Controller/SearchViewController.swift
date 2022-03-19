@@ -23,7 +23,9 @@ class SearchViewController: UITableViewController {
     lazy var input = SearchViewModel.Input(
         initialize: BehaviorSubject<Void>.init(value: Void()),
         searchButtonClicked: searchController.searchBar.rx.searchButtonClicked.asObservable(),
-        searchQuery: searchController.searchBar.rx.text.asObservable()
+        searchQuery: searchController.searchBar.rx.text.asObservable(),
+        page: BehaviorSubject<Int>.init(value: 1),
+        didScroll: toTuple()
     )
     
     lazy var output = searchViewModel.transform(input: input)
@@ -60,10 +62,17 @@ class SearchViewController: UITableViewController {
             }).disposed(by: disposeBag)
         
         output.searchedPhotoes
-            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self)) { index, item, cell in
-                print("Check Test: tableView")
+            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self))
+            { index, item, cell in
                 cell.configure(photo: item)
             }.disposed(by: disposeBag)
+        
+    }
+    
+    private func toTuple() ->  Observable<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)> {
+        tableView.rx.didScroll.flatMap { () -> Observable<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)> in
+            return Observable.just((self.tableView.contentOffset.y, self.tableView.contentSize.height, self.view.frame.height))
+        }
     }
     
     private func setUpSearchView() {
