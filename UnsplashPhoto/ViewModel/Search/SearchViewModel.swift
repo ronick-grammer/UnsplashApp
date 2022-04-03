@@ -36,7 +36,6 @@ class SearchViewModel: ViewModelType {
             .bind(onNext: { query = $0 ?? "Nature" })
             .disposed(by: disposeBag)
         
-        // TODO: - 스크롤해서 가장 아래로 내려갔을때 photoes 배열에 다음 사진들 더해주기, 다음 사진을 가져오면 scrolledtoEnd를 false로 바꿔주기
         input.didScroll.subscribe(onNext: { (contentOffsetY, contentSizeHeight, viewFrameHeight) in
             if !scrolledToEnd && contentOffsetY > contentSizeHeight - viewFrameHeight {
                 try? input.page.onNext(input.page.value() + 1)

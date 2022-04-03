@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212B25EE9ACE8560092FFA8F /* Pods_UnsplashPhotoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9D9DC0CE14B63167031F48 /* Pods_UnsplashPhotoTests.framework */; };
 		4DA00AF16FCCA1B0C86BA708 /* Pods_UnsplashPhoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5CA8699D6C13224C341D60 /* Pods_UnsplashPhoto.framework */; };
 		D40E5EAF2761E67E001EB14E /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E5EAE2761E67E001EB14E /* URL+Extensions.swift */; };
 		D40E5EB12761E690001EB14E /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E5EB02761E690001EB14E /* URLRequest+Extensions.swift */; };
@@ -14,6 +15,8 @@
 		D40E5EB52761E6A5001EB14E /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E5EB42761E6A5001EB14E /* Photo.swift */; };
 		D40E5EB72761E6BD001EB14E /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E5EB62761E6BD001EB14E /* SearchViewModel.swift */; };
 		D40E5EBA27625DB8001EB14E /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E5EB927625DB8001EB14E /* WebImageView.swift */; };
+		D46DF50E27EE0365007B79ED /* UnsplashPhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46DF50D27EE0365007B79ED /* UnsplashPhotoTests.swift */; };
+		D46DF51627EE0382007B79ED /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46DF51527EE0382007B79ED /* SearchViewModelTests.swift */; };
 		D481D0CD27680392001E6DBE /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CB27680392001E6DBE /* ProfileViewModel.swift */; };
 		D481D0CE27680392001E6DBE /* ProfileCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CC27680392001E6DBE /* ProfileCellViewModel.swift */; };
 		D481D0D0276803A1001E6DBE /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CF276803A1001E6DBE /* UserService.swift */; };
@@ -35,8 +38,21 @@
 		D4FD6ADF275DDD2C00E115A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4FD6ADD275DDD2C00E115A6 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D46DF51027EE0365007B79ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4FD6AC7275DDD2A00E115A6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4FD6ACE275DDD2A00E115A6;
+			remoteInfo = UnsplashPhoto;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		6130ECF886A200FF78372DAB /* Pods-UnsplashPhotoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhotoTests.release.xcconfig"; path = "Target Support Files/Pods-UnsplashPhotoTests/Pods-UnsplashPhotoTests.release.xcconfig"; sourceTree = "<group>"; };
+		653E1C069E89CEDB98091727 /* Pods-UnsplashPhotoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhotoTests.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashPhotoTests/Pods-UnsplashPhotoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C17220FF0D90FDC5314A72D /* Pods-UnsplashPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhoto.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashPhoto/Pods-UnsplashPhoto.debug.xcconfig"; sourceTree = "<group>"; };
+		9D9D9DC0CE14B63167031F48 /* Pods_UnsplashPhotoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashPhotoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5CA8699D6C13224C341D60 /* Pods_UnsplashPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD5B6BAC76E1D208318090A /* Pods-UnsplashPhoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhoto.release.xcconfig"; path = "Target Support Files/Pods-UnsplashPhoto/Pods-UnsplashPhoto.release.xcconfig"; sourceTree = "<group>"; };
 		D40E5EAE2761E67E001EB14E /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
@@ -45,6 +61,10 @@
 		D40E5EB42761E6A5001EB14E /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		D40E5EB62761E6BD001EB14E /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		D40E5EB927625DB8001EB14E /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
+		D46DF50B27EE0365007B79ED /* UnsplashPhotoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnsplashPhotoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D46DF50D27EE0365007B79ED /* UnsplashPhotoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPhotoTests.swift; sourceTree = "<group>"; };
+		D46DF50F27EE0365007B79ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D46DF51527EE0382007B79ED /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
 		D481D0CB27680392001E6DBE /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		D481D0CC27680392001E6DBE /* ProfileCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCellViewModel.swift; sourceTree = "<group>"; };
 		D481D0CF276803A1001E6DBE /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -73,6 +93,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D46DF50827EE0365007B79ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				212B25EE9ACE8560092FFA8F /* Pods_UnsplashPhotoTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4FD6ACC275DDD2A00E115A6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,6 +117,8 @@
 			children = (
 				9C17220FF0D90FDC5314A72D /* Pods-UnsplashPhoto.debug.xcconfig */,
 				CCD5B6BAC76E1D208318090A /* Pods-UnsplashPhoto.release.xcconfig */,
+				653E1C069E89CEDB98091727 /* Pods-UnsplashPhotoTests.debug.xcconfig */,
+				6130ECF886A200FF78372DAB /* Pods-UnsplashPhotoTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -97,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				BF5CA8699D6C13224C341D60 /* Pods_UnsplashPhoto.framework */,
+				9D9D9DC0CE14B63167031F48 /* Pods_UnsplashPhotoTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,6 +147,16 @@
 				D40E5EB927625DB8001EB14E /* WebImageView.swift */,
 			);
 			path = Items;
+			sourceTree = "<group>";
+		};
+		D46DF50C27EE0365007B79ED /* UnsplashPhotoTests */ = {
+			isa = PBXGroup;
+			children = (
+				D46DF50F27EE0365007B79ED /* Info.plist */,
+				D46DF50D27EE0365007B79ED /* UnsplashPhotoTests.swift */,
+				D46DF51527EE0382007B79ED /* SearchViewModelTests.swift */,
+			);
+			path = UnsplashPhotoTests;
 			sourceTree = "<group>";
 		};
 		D481D0BA2767F6CC001E6DBE /* Recovered References */ = {
@@ -226,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				D4FD6AD1275DDD2A00E115A6 /* UnsplashPhoto */,
+				D46DF50C27EE0365007B79ED /* UnsplashPhotoTests */,
 				D4FD6AD0275DDD2A00E115A6 /* Products */,
 				37A9F677010FFF258B35E655 /* Pods */,
 				5D8FF15B10C955B84A74A0CB /* Frameworks */,
@@ -237,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				D4FD6ACF275DDD2A00E115A6 /* UnsplashPhoto.app */,
+				D46DF50B27EE0365007B79ED /* UnsplashPhotoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -263,6 +306,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D46DF50A27EE0365007B79ED /* UnsplashPhotoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D46DF51227EE0365007B79ED /* Build configuration list for PBXNativeTarget "UnsplashPhotoTests" */;
+			buildPhases = (
+				9B41FE622482BEC689A7BFC9 /* [CP] Check Pods Manifest.lock */,
+				D46DF50727EE0365007B79ED /* Sources */,
+				D46DF50827EE0365007B79ED /* Frameworks */,
+				D46DF50927EE0365007B79ED /* Resources */,
+				BE385848E516654E9AEE50DB /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D46DF51127EE0365007B79ED /* PBXTargetDependency */,
+			);
+			name = UnsplashPhotoTests;
+			productName = UnsplashPhotoTests;
+			productReference = D46DF50B27EE0365007B79ED /* UnsplashPhotoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D4FD6ACE275DDD2A00E115A6 /* UnsplashPhoto */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4FD6AE3275DDD2C00E115A6 /* Build configuration list for PBXNativeTarget "UnsplashPhoto" */;
@@ -291,6 +354,10 @@
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					D46DF50A27EE0365007B79ED = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = D4FD6ACE275DDD2A00E115A6;
+					};
 					D4FD6ACE275DDD2A00E115A6 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -310,11 +377,19 @@
 			projectRoot = "";
 			targets = (
 				D4FD6ACE275DDD2A00E115A6 /* UnsplashPhoto */,
+				D46DF50A27EE0365007B79ED /* UnsplashPhotoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D46DF50927EE0365007B79ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4FD6ACD275DDD2A00E115A6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -349,6 +424,45 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9B41FE622482BEC689A7BFC9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UnsplashPhotoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE385848E516654E9AEE50DB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UnsplashPhotoTests/Pods-UnsplashPhotoTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UnsplashPhotoTests/Pods-UnsplashPhotoTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnsplashPhotoTests/Pods-UnsplashPhotoTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F42F3EA88040DB2D4CCA345E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -369,6 +483,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D46DF50727EE0365007B79ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D46DF51627EE0382007B79ED /* SearchViewModelTests.swift in Sources */,
+				D46DF50E27EE0365007B79ED /* UnsplashPhotoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4FD6ACB275DDD2A00E115A6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -401,6 +524,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		D46DF51127EE0365007B79ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4FD6ACE275DDD2A00E115A6 /* UnsplashPhoto */;
+			targetProxy = D46DF51027EE0365007B79ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		D4FD6ADD275DDD2C00E115A6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -413,6 +544,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D46DF51327EE0365007B79ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 653E1C069E89CEDB98091727 /* Pods-UnsplashPhotoTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M8Q4DXWNP5;
+				INFOPLIST_FILE = UnsplashPhotoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ronick.UnsplashPhotoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UnsplashPhoto.app/UnsplashPhoto";
+			};
+			name = Debug;
+		};
+		D46DF51427EE0365007B79ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6130ECF886A200FF78372DAB /* Pods-UnsplashPhotoTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M8Q4DXWNP5;
+				INFOPLIST_FILE = UnsplashPhotoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ronick.UnsplashPhotoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UnsplashPhoto.app/UnsplashPhoto";
+			};
+			name = Release;
+		};
 		D4FD6AE1275DDD2C00E115A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -572,6 +745,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D46DF51227EE0365007B79ED /* Build configuration list for PBXNativeTarget "UnsplashPhotoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D46DF51327EE0365007B79ED /* Debug */,
+				D46DF51427EE0365007B79ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D4FD6ACA275DDD2A00E115A6 /* Build configuration list for PBXProject "UnsplashPhoto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

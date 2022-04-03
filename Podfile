@@ -7,8 +7,15 @@ target 'UnsplashPhoto' do
 
   # Pods for UnsplashPhoto
   
-  pod 'RxSwift', '~> 4.0'
-  pod 'RxCocoa', '~> 4.0'
+  pod 'RxSwift', '6.5.0'
+  pod 'RxCocoa', '6.5.0'
   pod 'SnapKit', '~> 5.0.0'
 
+end
+
+target 'UnsplashPhotoTests' do
+  use_frameworks!
+
+  pod 'RxBlocking', '6.5.0'
+  pod 'RxTest', '6.5.0'
 end
