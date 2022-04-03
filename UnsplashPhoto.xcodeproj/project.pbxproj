@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		212B25EE9ACE8560092FFA8F /* Pods_UnsplashPhotoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9D9DC0CE14B63167031F48 /* Pods_UnsplashPhotoTests.framework */; };
 		4DA00AF16FCCA1B0C86BA708 /* Pods_UnsplashPhoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5CA8699D6C13224C341D60 /* Pods_UnsplashPhoto.framework */; };
+		B1C133624606CA1E4C2139F1 /* Pods_UnsplashPhotoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4FE928F55B774AD63F2833 /* Pods_UnsplashPhotoTests.framework */; };
 		D40E5EAF2761E67E001EB14E /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E5EAE2761E67E001EB14E /* URL+Extensions.swift */; };
 		D40E5EB12761E690001EB14E /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E5EB02761E690001EB14E /* URLRequest+Extensions.swift */; };
 		D40E5EB32761E69A001EB14E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E5EB22761E69A001EB14E /* User.swift */; };
@@ -17,6 +17,8 @@
 		D40E5EBA27625DB8001EB14E /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E5EB927625DB8001EB14E /* WebImageView.swift */; };
 		D4120D2627F9A84A00554C00 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4120D2527F9A84A00554C00 /* RxBlocking.framework */; };
 		D4120D2827F9A85400554C00 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4120D2727F9A85400554C00 /* RxTest.framework */; };
+		D4120D2E27F9B61700554C00 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4120D2D27F9B61700554C00 /* Nimble.framework */; };
+		D4120D3227F9B87C00554C00 /* RxNimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4120D3127F9B87C00554C00 /* RxNimble.framework */; };
 		D46DF50E27EE0365007B79ED /* UnsplashPhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46DF50D27EE0365007B79ED /* UnsplashPhotoTests.swift */; };
 		D46DF51627EE0382007B79ED /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46DF51527EE0382007B79ED /* SearchViewModelTests.swift */; };
 		D481D0CD27680392001E6DBE /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CB27680392001E6DBE /* ProfileViewModel.swift */; };
@@ -51,11 +53,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E01B3A69F3B4661A334363A /* Pods-UnsplashPhoto-UnsplashPhotoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhoto-UnsplashPhotoTests.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashPhoto-UnsplashPhotoTests/Pods-UnsplashPhoto-UnsplashPhotoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6130ECF886A200FF78372DAB /* Pods-UnsplashPhotoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhotoTests.release.xcconfig"; path = "Target Support Files/Pods-UnsplashPhotoTests/Pods-UnsplashPhotoTests.release.xcconfig"; sourceTree = "<group>"; };
 		653E1C069E89CEDB98091727 /* Pods-UnsplashPhotoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhotoTests.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashPhotoTests/Pods-UnsplashPhotoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C17220FF0D90FDC5314A72D /* Pods-UnsplashPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhoto.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashPhoto/Pods-UnsplashPhoto.debug.xcconfig"; sourceTree = "<group>"; };
-		9D9D9DC0CE14B63167031F48 /* Pods_UnsplashPhotoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashPhotoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB4FE928F55B774AD63F2833 /* Pods_UnsplashPhotoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashPhotoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5CA8699D6C13224C341D60 /* Pods_UnsplashPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCA1E0D572B3C64BE1DD9EF1 /* Pods-UnsplashPhoto-UnsplashPhotoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhoto-UnsplashPhotoTests.release.xcconfig"; path = "Target Support Files/Pods-UnsplashPhoto-UnsplashPhotoTests/Pods-UnsplashPhoto-UnsplashPhotoTests.release.xcconfig"; sourceTree = "<group>"; };
 		CCD5B6BAC76E1D208318090A /* Pods-UnsplashPhoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPhoto.release.xcconfig"; path = "Target Support Files/Pods-UnsplashPhoto/Pods-UnsplashPhoto.release.xcconfig"; sourceTree = "<group>"; };
 		D40E5EAE2761E67E001EB14E /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		D40E5EB02761E690001EB14E /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
@@ -67,6 +71,12 @@
 		D4120D1D27F9A7DA00554C00 /* RxTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4120D2527F9A84A00554C00 /* RxBlocking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4120D2727F9A85400554C00 /* RxTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4120D2927F9B59100554C00 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4120D2B27F9B60300554C00 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4120D2D27F9B61700554C00 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4120D2F27F9B63100554C00 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4120D3127F9B87C00554C00 /* RxNimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxNimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4120D3327F9B89300554C00 /* RxNimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxNimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46DF50B27EE0365007B79ED /* UnsplashPhotoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnsplashPhotoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46DF50D27EE0365007B79ED /* UnsplashPhotoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPhotoTests.swift; sourceTree = "<group>"; };
 		D46DF50F27EE0365007B79ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -103,9 +113,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4120D3227F9B87C00554C00 /* RxNimble.framework in Frameworks */,
+				D4120D2E27F9B61700554C00 /* Nimble.framework in Frameworks */,
 				D4120D2627F9A84A00554C00 /* RxBlocking.framework in Frameworks */,
-				212B25EE9ACE8560092FFA8F /* Pods_UnsplashPhotoTests.framework in Frameworks */,
 				D4120D2827F9A85400554C00 /* RxTest.framework in Frameworks */,
+				B1C133624606CA1E4C2139F1 /* Pods_UnsplashPhotoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +139,8 @@
 				CCD5B6BAC76E1D208318090A /* Pods-UnsplashPhoto.release.xcconfig */,
 				653E1C069E89CEDB98091727 /* Pods-UnsplashPhotoTests.debug.xcconfig */,
 				6130ECF886A200FF78372DAB /* Pods-UnsplashPhotoTests.release.xcconfig */,
+				1E01B3A69F3B4661A334363A /* Pods-UnsplashPhoto-UnsplashPhotoTests.debug.xcconfig */,
+				CCA1E0D572B3C64BE1DD9EF1 /* Pods-UnsplashPhoto-UnsplashPhotoTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -134,12 +148,18 @@
 		5D8FF15B10C955B84A74A0CB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4120D3327F9B89300554C00 /* RxNimble.framework */,
+				D4120D3127F9B87C00554C00 /* RxNimble.framework */,
+				D4120D2F27F9B63100554C00 /* Nimble.framework */,
+				D4120D2D27F9B61700554C00 /* Nimble.framework */,
+				D4120D2B27F9B60300554C00 /* Nimble.framework */,
+				D4120D2927F9B59100554C00 /* Nimble.framework */,
 				D4120D2727F9A85400554C00 /* RxTest.framework */,
 				D4120D2527F9A84A00554C00 /* RxBlocking.framework */,
 				D4120D1D27F9A7DA00554C00 /* RxTest.framework */,
 				D4120D1927F9A72000554C00 /* RxBlocking.framework */,
 				BF5CA8699D6C13224C341D60 /* Pods_UnsplashPhoto.framework */,
-				9D9D9DC0CE14B63167031F48 /* Pods_UnsplashPhotoTests.framework */,
+				BB4FE928F55B774AD63F2833 /* Pods_UnsplashPhotoTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -269,8 +289,8 @@
 		D4F8CD4D276726CA009D1D3F /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				D481D0CC27680392001E6DBE /* ProfileCellViewModel.swift */,
 				D481D0CB27680392001E6DBE /* ProfileViewModel.swift */,
+				D481D0CC27680392001E6DBE /* ProfileCellViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -563,6 +583,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8Q4DXWNP5;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Pods",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nimble/Nimble.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxBlocking/RxBlocking.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift/RxSwift.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxTest/RxTest.framework/Headers\"",
+				);
 				INFOPLIST_FILE = UnsplashPhotoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -584,6 +612,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8Q4DXWNP5;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Pods",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nimble/Nimble.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxBlocking/RxBlocking.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift/RxSwift.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxTest/RxTest.framework/Headers\"",
+				);
 				INFOPLIST_FILE = UnsplashPhotoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -722,6 +758,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8Q4DXWNP5;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa/RxCocoa.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxRelay/RxRelay.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift/RxSwift.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers\"",
+				);
 				INFOPLIST_FILE = UnsplashPhoto/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -742,6 +785,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M8Q4DXWNP5;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa/RxCocoa.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxRelay/RxRelay.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift/RxSwift.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers\"",
+				);
 				INFOPLIST_FILE = UnsplashPhoto/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

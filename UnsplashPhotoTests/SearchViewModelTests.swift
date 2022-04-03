@@ -11,10 +11,12 @@ import RxSwift
 import RxCocoa
 import RxBlocking
 import RxTest
+import Nimble
 
 class SearchViewModelTests: XCTestCase {
     
     var sut: SearchViewModel!
+    let disposeBag = DisposeBag()
 
     override func setUp() {
         super.setUp()
@@ -27,15 +29,21 @@ class SearchViewModelTests: XCTestCase {
     }
     
     func test_test() {
-//        let event = ControlEvent(events: <#T##ObservableType#>
-//        let input = SearchViewModel.Input(
-//            initialize: BehaviorSubject<Void>.init(value: ()),
-//            searchButtonClicked: ),
-//            searchQuery: <#T##Observable<String?>#>,
-//            page: <#T##BehaviorSubject<Int>#>,
-//            didScroll: <#T##Observable<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)>#>)\
-        
-        
+
+        let s = TestScheduler(initialClock: 0)
+        let ob = s.createHotObservable([
+            .next(1, "a"),
+            .next(2, "b")
+        ])
+
+        let observer = s.createObserver(String.self)
+        ob.subscribe(observer).disposed(by: disposeBag)
+
+        s.start()
+
+        expect(observer.events).to(equal([.next(1, "a"), .next(2, "b")]))
     }
+    
+    
 
 }

@@ -1,9 +1,9 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
+use_frameworks!
 
 target 'UnsplashPhoto' do
   # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
 
   # Pods for UnsplashPhoto
   
@@ -14,8 +14,8 @@ target 'UnsplashPhoto' do
 end
 
 target 'UnsplashPhotoTests' do
-  use_frameworks!
 
   pod 'RxBlocking', '6.5.0'
   pod 'RxTest', '6.5.0'
+  pod 'RxNimble'
 end
