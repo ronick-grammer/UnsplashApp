@@ -7,8 +7,10 @@
 
 import XCTest
 @testable import UnsplashPhoto
-@testable import RxSwift
-@testable import RxCocoa
+import RxSwift
+import RxCocoa
+import RxBlocking
+import RxTest
 
 class SearchViewModelTests: XCTestCase {
     
@@ -31,7 +33,8 @@ class SearchViewModelTests: XCTestCase {
 //            searchButtonClicked: ),
 //            searchQuery: <#T##Observable<String?>#>,
 //            page: <#T##BehaviorSubject<Int>#>,
-//            didScroll: <#T##Observable<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)>#>)
+//            didScroll: <#T##Observable<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)>#>)\
+        
         
     }
 
