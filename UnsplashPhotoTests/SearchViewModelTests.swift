@@ -17,10 +17,28 @@ class SearchViewModelTests: XCTestCase {
     
     var sut: SearchViewModel!
     let disposeBag = DisposeBag()
+    private var searchController = UISearchController()
+    
+    private var searchViewModel = SearchViewModel()
+    
+//    let buttonClicked = ControlEvent<Void>(events: Observable<Void>.just(()))
+    let searchButtonClicked = PublishSubject<Void>()
+    let searchQuery = PublishSubject<String?>()
+    
+    lazy var input = SearchViewModel.Input(
+        initialize: BehaviorSubject<Void>.init(value: Void()),
+        searchButtonClicked: searchButtonClicked.asObservable(),
+        searchQuery: searchQuery.asObservable(),
+        page: BehaviorSubject<Int>.init(value: 1),
+        didScroll: Observable.just((300, 700, 730))
+    )
+    
+    lazy var output = searchViewModel.transform(input: input)
 
     override func setUp() {
         super.setUp()
         sut = SearchViewModel()
+        
     }
 
     override func tearDown() {
