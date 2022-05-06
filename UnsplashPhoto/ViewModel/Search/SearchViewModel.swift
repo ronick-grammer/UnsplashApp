@@ -25,6 +25,13 @@ class SearchViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
     
+    let searchService: SearchServiceProtocol
+    
+    init(searchService: SearchServiceProtocol = SearchService()) {
+        self.searchService = searchService
+    }
+    
+    
     func transform(input: Input) -> Output {
         
         var photoes:  Observable<[Photo]>
@@ -59,7 +66,7 @@ class SearchViewModel: ViewModelType {
         let source = Observable.of(input.initialize.asObservable(), pageObservable)
         photoes = source.merge()
             .flatMap { _ -> Observable<PhotoResults> in
-                return self.searchImage(query: query.isEmpty ? "Nature" : query, page: try input.page.value())
+                return self.searchService.searchImage(query: query.isEmpty ? "Nature" : query, page: try input.page.value())
             }.map { photoResults -> [Photo] in
                 scrolledToEnd = false
                 photoElements = photoElements + photoResults.results
@@ -67,13 +74,5 @@ class SearchViewModel: ViewModelType {
             }
         
         return Output(searchedPhotoes: photoes)
-    }
-    
-    func searchImage(query: String, page: Int) -> Observable<PhotoResults> {
-        
-        guard let url = URL.urlForSearchPhotosAPI(query: query, page: page) else { return Observable.empty() }
-        let resource = Resource<PhotoResults>(url: url)
-        
-        return URLRequest.load(resource: resource)
     }
 }
