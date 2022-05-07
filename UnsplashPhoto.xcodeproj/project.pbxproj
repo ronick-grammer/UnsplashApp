@@ -20,6 +20,7 @@
 		D4120D2E27F9B61700554C00 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4120D2D27F9B61700554C00 /* Nimble.framework */; };
 		D4120D3227F9B87C00554C00 /* RxNimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4120D3127F9B87C00554C00 /* RxNimble.framework */; };
 		D41E81D12824FA7500773951 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41E81D02824FA7500773951 /* SearchService.swift */; };
+		D41E81D3282505FF00773951 /* SearchServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41E81D2282505FF00773951 /* SearchServiceStub.swift */; };
 		D481D0CD27680392001E6DBE /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CB27680392001E6DBE /* ProfileViewModel.swift */; };
 		D481D0CE27680392001E6DBE /* ProfileCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CC27680392001E6DBE /* ProfileCellViewModel.swift */; };
 		D481D0D0276803A1001E6DBE /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481D0CF276803A1001E6DBE /* UserService.swift */; };
@@ -78,6 +79,7 @@
 		D4120D3127F9B87C00554C00 /* RxNimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxNimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4120D3327F9B89300554C00 /* RxNimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxNimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41E81D02824FA7500773951 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		D41E81D2282505FF00773951 /* SearchServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceStub.swift; sourceTree = "<group>"; };
 		D46DF50B27EE0365007B79ED /* UnsplashPhotoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnsplashPhotoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46DF50F27EE0365007B79ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D481D0CB27680392001E6DBE /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				D4A7889C281EB1D000ED88FA /* SearchViewModelTests.swift */,
+				D41E81D2282505FF00773951 /* SearchServiceStub.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4A7889D281EB1D000ED88FA /* SearchViewModelTests.swift in Sources */,
+				D41E81D3282505FF00773951 /* SearchServiceStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
