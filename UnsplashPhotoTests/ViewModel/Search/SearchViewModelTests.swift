@@ -22,6 +22,7 @@ class SearchViewModelTests: XCTestCase {
     var searchButtonClicked: PublishSubject<Void>!
     var searchQuery: PublishSubject<String?>!
     
+    var testScheduler: TestScheduler!
     var disposeBag: DisposeBag!
 
     override func setUp() {
@@ -35,10 +36,11 @@ class SearchViewModelTests: XCTestCase {
             searchButtonClicked: searchButtonClicked.asObservable(),
             searchQuery: searchQuery.asObservable(),
             page: BehaviorSubject<Int>.init(value: 1),
-            didScroll: Observable.just((300, 700, 730))
+            didScroll: Observable.just((0, 3000, 700)).skip(1)
             )
         output = sut.transform(input: input)
         
+        testScheduler = TestScheduler(initialClock: 0)
         disposeBag = DisposeBag()
     }
 
@@ -48,6 +50,7 @@ class SearchViewModelTests: XCTestCase {
         output = nil
         searchButtonClicked = nil
         searchQuery = nil
+        testScheduler = nil
         disposeBag = nil
         super.tearDown()
     }
