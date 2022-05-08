@@ -88,5 +88,31 @@ class SearchViewModelTests: XCTestCase {
             .next(30, 10)
         ])
     }
+    
+    func test_whenScrollingDownToBottomEnd_thenGetsTenMorePhotoLists() {
+        // given
+        let photoes = testScheduler.createObserver(Int.self)
+        output.searchedPhotoes
+            .map { $0.count }
+            .bind(to: photoes)
+            .disposed(by: disposeBag)
+        
+        // when
+        testScheduler.createColdObservable([
+            .next(10, (2301, 3000, 700)),
+            .next(20, (5301, 6000, 700))])
+            .bind(to: didScroll)
+            .disposed(by: disposeBag)
+        
+        testScheduler.start()
+        
+        // then
+        XCTAssertEqual(photoes.events, [
+            .next(0, 10),
+            .next(10, 20),
+            .next(20, 30)
+        ])
+        
+    }
 
 }
