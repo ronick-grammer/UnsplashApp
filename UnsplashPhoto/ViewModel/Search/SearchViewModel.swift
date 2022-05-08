@@ -45,23 +45,24 @@ class SearchViewModel: ViewModelType {
         
         input.didScroll.subscribe(onNext: { (contentOffsetY, contentSizeHeight, viewFrameHeight) in
             if !scrolledToEnd && contentOffsetY > contentSizeHeight - viewFrameHeight {
-                try? input.page.onNext(input.page.value() + 1)
                 scrolledToEnd = true
+                try? input.page.onNext(input.page.value() + 1)
             }
         }).disposed(by: disposeBag)
         
         input.searchButtonClicked
             .bind {
                 photoElements.removeAll()
-                input.page.onNext(1)
                 scrolledToEnd = false
+                input.page.onNext(1)
             }
             .disposed(by: disposeBag)
         
         let pageObservable = input.page.asObservable()
+            .skip(1)
             .flatMap { _ -> Observable<Void> in
                 return Observable.just(())
-            }.skip(1)
+            }
         
         let source = Observable.of(input.initialize.asObservable(), pageObservable)
         photoes = source.merge()
