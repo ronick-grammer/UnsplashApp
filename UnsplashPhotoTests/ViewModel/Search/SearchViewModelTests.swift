@@ -21,6 +21,7 @@ class SearchViewModelTests: XCTestCase {
 
     var searchButtonClicked: PublishSubject<Void>!
     var searchQuery: PublishSubject<String?>!
+    var didScroll: PublishSubject<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)>!
     
     var testScheduler: TestScheduler!
     var disposeBag: DisposeBag!
@@ -30,13 +31,14 @@ class SearchViewModelTests: XCTestCase {
         sut = SearchViewModel(searchService: SearchServiceStub())
         searchButtonClicked = PublishSubject<Void>()
         searchQuery = PublishSubject<String?>()
+        didScroll = PublishSubject<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)>()
         
         input = SearchViewModel.Input(
             initialize: BehaviorSubject<Void>.init(value: Void()),
             searchButtonClicked: searchButtonClicked.asObservable(),
             searchQuery: searchQuery.asObservable(),
             page: BehaviorSubject<Int>.init(value: 1),
-            didScroll: Observable.just((0, 3000, 700)).skip(1)
+            didScroll: didScroll.asObservable()
             )
         output = sut.transform(input: input)
         
@@ -50,6 +52,7 @@ class SearchViewModelTests: XCTestCase {
         output = nil
         searchButtonClicked = nil
         searchQuery = nil
+        didScroll = nil
         testScheduler = nil
         disposeBag = nil
         super.tearDown()
@@ -72,7 +75,6 @@ class SearchViewModelTests: XCTestCase {
             .next(10, ()),
             .next(20, ()),
             .next(30, ())])
-
         .bind(to: searchButtonClicked)
         .disposed(by: disposeBag)
         
