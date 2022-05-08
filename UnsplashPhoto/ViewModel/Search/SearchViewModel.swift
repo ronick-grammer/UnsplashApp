@@ -52,8 +52,8 @@ class SearchViewModel: ViewModelType {
         
         input.searchButtonClicked
             .bind {
-                input.page.onNext(1)
                 photoElements.removeAll()
+                input.page.onNext(1)
                 scrolledToEnd = false
             }
             .disposed(by: disposeBag)
