@@ -59,6 +59,32 @@ class SearchViewModelTests: XCTestCase {
         XCTAssertEqual(try! output.searchedPhotoes.toBlocking().first()?.count, 10)
     }
     
-    
+    func test_whenClickingOnSearchButton_thenGetsTenPhotoLists() {
+        // given
+        let photoes = testScheduler.createObserver(Int.self)
+        output.searchedPhotoes
+            .map { $0.count }
+            .bind(to: photoes)
+            .disposed(by: disposeBag)
+
+        // when
+        testScheduler.createColdObservable([
+            .next(10, ()),
+            .next(20, ()),
+            .next(30, ())])
+
+        .bind(to: searchButtonClicked)
+        .disposed(by: disposeBag)
+        
+        testScheduler.start()
+        
+        // then
+        XCTAssertEqual(photoes.events, [
+            .next(0, 10),
+            .next(10, 10),
+            .next(20, 10),
+            .next(30, 10)
+        ])
+    }
 
 }
