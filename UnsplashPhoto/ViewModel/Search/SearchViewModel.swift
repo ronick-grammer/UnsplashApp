@@ -9,25 +9,71 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class SearchViewModel {
-    var photos = BehaviorRelay<[Photo]>.init(value: [])
-    let disposeBag = DisposeBag()
+class SearchViewModel: ViewModelType {
     
-    init() {
-        searchImage(query: "Nature")
+    struct Input {
+        let initialize: BehaviorSubject<Void>
+        let searchButtonClicked: Observable<Void>
+        let searchQuery: Observable<String?>
+        let page: BehaviorSubject<Int>
+        let didScroll: Observable<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)>
     }
     
-    func searchImage(query: String) {
+    struct Output {
+        let searchedPhotoes: Observable<[Photo]>
+    }
+    
+    var disposeBag = DisposeBag()
+    
+    let searchService: SearchServiceProtocol
+    
+    init(searchService: SearchServiceProtocol = SearchService()) {
+        self.searchService = searchService
+    }
+    
+    
+    func transform(input: Input) -> Output {
         
-        guard let url = URL.urlForSearchPhotosAPI(query: query) else { return }
-        let resource = Resource<PhotoResults>(url: url)
-        URLRequest.load(resource: resource)
-            .subscribe(onNext: { [weak self] photoResults in
-                
-                self?.photos.accept(photoResults.results)
-                
-                
-            }).disposed(by: disposeBag)
+        var photoes:  Observable<[Photo]>
+        var photoElements =  [Photo]()
+        var query = ""
+        var scrolledToEnd = false
+        
+        input.searchQuery
+            .bind(onNext: { query = $0 ?? "Nature" })
+            .disposed(by: disposeBag)
+        
+        input.didScroll.subscribe(onNext: { (contentOffsetY, contentSizeHeight, viewFrameHeight) in
+            if !scrolledToEnd && contentOffsetY > contentSizeHeight - viewFrameHeight {
+                scrolledToEnd = true
+                try? input.page.onNext(input.page.value() + 1)
+            }
+        }).disposed(by: disposeBag)
+        
+        input.searchButtonClicked
+            .bind {
+                photoElements.removeAll()
+                scrolledToEnd = false
+                input.page.onNext(1)
+            }
+            .disposed(by: disposeBag)
+        
+        let pageObservable = input.page.asObservable()
+            .skip(1)
+            .flatMap { _ -> Observable<Void> in
+                return Observable.just(())
+            }
+        
+        let source = Observable.of(input.initialize.asObservable(), pageObservable)
+        photoes = source.merge()
+            .flatMap { _ -> Observable<PhotoResults> in
+                return self.searchService.searchImage(query: query.isEmpty ? "Nature" : query, page: try input.page.value())
+            }.map { photoResults -> [Photo] in
+                scrolledToEnd = false
+                photoElements = photoElements + photoResults.results
+                return photoElements
+            }
+        
+        return Output(searchedPhotoes: photoes)
     }
-
 }

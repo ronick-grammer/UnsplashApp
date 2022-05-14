@@ -20,6 +20,16 @@ class SearchViewController: UITableViewController {
     
     private var searchViewModel = SearchViewModel()
     
+    lazy var input = SearchViewModel.Input(
+        initialize: BehaviorSubject<Void>.init(value: Void()),
+        searchButtonClicked: searchController.searchBar.rx.searchButtonClicked.asObservable(),
+        searchQuery: searchController.searchBar.rx.text.asObservable(),
+        page: BehaviorSubject<Int>.init(value: 1),
+        didScroll: toTuple()
+    )
+    
+    lazy var output = searchViewModel.transform(input: input)
+    
     override func viewDidLoad() {
         
         tableView.dataSource = nil
@@ -28,30 +38,7 @@ class SearchViewController: UITableViewController {
         tableView.allowsSelection = false
         
         setUpSearchView()
-        
-        AuthManager.shared.loggedIn
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-
-                self?.tableView.reloadData()
-
-            }).disposed(by: disposeBag)
-        
-        searchViewModel.photos
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-
-                self?.tableView.reloadData()
-
-            }).disposed(by: disposeBag)
-        
-        searchViewModel.photos
-            .observeOn(MainScheduler.instance)
-            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self)) { index, item, cell in
-
-                cell.configure(photo: item)
-
-            }.disposed(by: disposeBag)
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,10 +51,34 @@ class SearchViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    private func setUpSearchView(){
+    private func bind() {
+        
+        AuthManager.shared.loggedIn
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+
+                self?.tableView.reloadData()
+
+            }).disposed(by: disposeBag)
+        
+        output.searchedPhotoes
+            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchCell.self))
+            { index, item, cell in
+                cell.configure(photo: item)
+            }.disposed(by: disposeBag)
+        
+    }
+    
+    private func toTuple() ->  Observable<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)> {
+        tableView.rx.didScroll.flatMap { () -> Observable<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)> in
+            return Observable.just((self.tableView.contentOffset.y, self.tableView.contentSize.height, self.view.frame.height))
+        }
+    }
+    
+    private func setUpSearchView() {
         searchController.delegate = self
         searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
+//        searchController.searchBar.delegate = self
         
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
@@ -102,8 +113,8 @@ extension SearchViewController: UISearchResultsUpdating {
 }
 
 // MARK: - UISearchBarDelegate
-extension SearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchViewModel.searchImage(query: searchBar.text ?? "Nature")
-    }
-}
+//extension SearchViewController: UISearchBarDelegate {
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        searchViewModel.searchImage(query: searchBar.text ?? "Nature")
+//    }
+//}
