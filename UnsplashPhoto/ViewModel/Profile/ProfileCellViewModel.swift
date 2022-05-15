@@ -21,28 +21,28 @@ class ProfileCellViewModel {
     
     func like() {
         
-        UserService.like(photoID: photo.value.id) { [weak self] in
-            guard let self = self else { return }
-            
-            var newPhoto = self.photo.value
-            newPhoto.likes += 1
-            newPhoto.liked_by_user = true
-            
-            self.photo.accept(newPhoto)
-        }
+//        UserService.like(photoID: photo.value.id) { [weak self] in
+//            guard let self = self else { return }
+//
+//            var newPhoto = self.photo.value
+//            newPhoto.likes += 1
+//            newPhoto.liked_by_user = true
+//
+//            self.photo.accept(newPhoto)
+//        }
     }
     
     func unlike() {
         
-        UserService.unlike(photoID: photo.value.id) { [weak self] in
-            guard let self = self else { return }
-            
-            var newPhoto = self.photo.value
-            newPhoto.likes -= 1
-            newPhoto.liked_by_user = false
-            
-            self.photo.accept(newPhoto)
-        }
+//        UserService.unlike(photoID: photo.value.id) { [weak self] in
+//            guard let self = self else { return }
+//
+//            var newPhoto = self.photo.value
+//            newPhoto.likes -= 1
+//            newPhoto.liked_by_user = false
+//
+//            self.photo.accept(newPhoto)
+//        }
     }
     
     // 셀을 로드할 때마다 좋아요 상태를 체크

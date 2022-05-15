@@ -16,6 +16,9 @@ class SearchCell: UITableViewCell {
     var viewModel: SearchCellViewModel?
     let disposeBag = DisposeBag()
     
+    lazy var input = SearchCellViewModel.Input(likeButtonClicked: likeButton.rx.tap.asObservable())
+    lazy var output = viewModel?.transform(input: input)
+    
     private var photo: WebImageView = {
         let imageView = WebImageView()
         imageView.contentMode = .scaleAspectFill
@@ -108,30 +111,36 @@ class SearchCell: UITableViewCell {
             maker.width.height.equalTo(25)
         }
         
-        likeButton.addTarget(self, action: #selector(toggleLike(_:)), for: .touchUpInside)
+//        likeButton.addTarget(self, action: #selector(toggleLike(_:)), for: .touchUpInside)
     }
     
     func configure(photo: Photo) {
         
-        viewModel = SearchCellViewModel(photo: photo)
-        viewModel?.photo.observeOn(MainScheduler.instance)
+        self.photo.imageUrl = photo.urls.regular
+        self.ownerName.text = photo.user.name
+        updateLike(photo: photo)
+        
+        viewModel = SearchCellViewModel(photoId: photo.id, likedByMe: photo.liked_by_user)
+        output?.photo.observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] photo in
-
-                self?.photo.imageUrl = photo.urls.regular
-                self?.ownerName.text = photo.user.name
-                self?.likes.text = String(photo.likes)
-                self?.liked = photo.liked_by_user
-                
-                self?.likeButton.setImage(
-                    UIImage(systemName: photo.liked_by_user ? "bolt.heart.fill" : "bolt.heart")!,
-                    for: .normal
-                )
+                guard let photo = photo else { return }
+                self?.updateLike(photo: photo)
 
             }).disposed(by: disposeBag)
     }
     
-    @objc func toggleLike(_ sender: UIButton) {
-        liked ? viewModel?.unlike() : viewModel?.like()
+    func updateLike(photo: Photo) {
+        self.likes.text = String(photo.likes)
+        self.liked = photo.liked_by_user
         
+        self.likeButton.setImage(
+            UIImage(systemName: photo.liked_by_user ? "bolt.heart.fill" : "bolt.heart")!,
+            for: .normal
+        )
     }
+    
+//    @objc func toggleLike(_ sender: UIButton) {
+//        liked ? viewModel?.unlike() : viewModel?.like()
+//
+//    }
 }
