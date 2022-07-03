@@ -20,8 +20,8 @@ extension URL {
     
     static let scope = "public+write_likes"
     
-    static func urlForSearchPhotosAPI(query: String, page: Int) -> URL? {
-        return URL(string: "\(base_url)/search/photos?client_id=\(access_key)&page=\(page)&query=\(query)")
+    static func urlForSearchPhotosAPI(query: String, page: Int, perPage: Int) -> URL? {
+        return URL(string: "\(base_url)/search/photos?client_id=\(access_key)&page=\(page)&query=\(query)&per_page=\(perPage)")
     }
     
     static func urlForPhoto(photoID: String) -> URL? {
