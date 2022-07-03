@@ -17,6 +17,7 @@ class SearchViewModel: ViewModelType {
         let searchQuery: Observable<String?>
         let page: BehaviorSubject<Int>
         let didScroll: Observable<(contentOffsetY: CGFloat, contentSizeHeight: CGFloat, viewFrameHeight: CGFloat)>
+        let fetchPhotoes: Observable<Void> // 로그인 후, 좋아요 상태 체크를 위하여
     }
     
     struct Output {
@@ -38,6 +39,7 @@ class SearchViewModel: ViewModelType {
         var photoElements =  [Photo]()
         var query = ""
         var scrolledToEnd = false
+        var fetch = false
         
         input.searchQuery
             .bind(onNext: { query = $0 ?? "Nature" })
@@ -58,19 +60,37 @@ class SearchViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.fetchPhotoes
+            .bind {
+                fetch = true
+            }
+            .disposed(by: disposeBag)
+        
         let pageObservable = input.page.asObservable()
             .skip(1)
             .flatMap { _ -> Observable<Void> in
                 return Observable.just(())
             }
         
-        let source = Observable.of(input.initialize.asObservable(), pageObservable)
+        let source = Observable.of(input.initialize.asObservable(), pageObservable, input.fetchPhotoes.asObservable())
+        
         photoes = source.merge()
             .flatMap { _ -> Observable<PhotoResults> in
-                return self.searchService.searchImage(query: query.isEmpty ? "Nature" : query, page: try input.page.value())
+                if fetch {
+                    return self.searchService.searchImage(query: query.isEmpty ? "Nature" : query, page: 1, perPage: try input.page.value() * 10)
+                } else {
+                    return self.searchService.searchImage(query: query.isEmpty ? "Nature" : query, page: try input.page.value(), perPage: 10)
+                }
             }.map { photoResults -> [Photo] in
                 scrolledToEnd = false
-                photoElements = photoElements + photoResults.results
+                
+                if fetch {
+                    photoElements = photoResults.results 
+                    fetch = false
+                } else {
+                    photoElements = photoElements + photoResults.results
+                }
+                
                 return photoElements
             }
         
