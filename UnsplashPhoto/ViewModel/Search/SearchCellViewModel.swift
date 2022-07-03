@@ -31,6 +31,7 @@ class SearchCellViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         let photo = input.likeButtonClicked
+            .skip { AuthManager.shared.user == nil }
             .scan(likedByMe) { old, _ in
                 print("likedByMe: ", self.likedByMe)
                 return !old
