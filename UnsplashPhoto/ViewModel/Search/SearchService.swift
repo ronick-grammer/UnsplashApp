@@ -9,15 +9,22 @@ import Foundation
 import RxSwift
 
 protocol SearchServiceProtocol {
-    func searchImage(query: String, page: Int) -> Observable<PhotoResults>
+    func searchImage(query: String, page: Int, perPage: Int) -> Observable<PhotoResults>
 }
 
 class SearchService: SearchServiceProtocol {
-    func searchImage(query: String, page: Int) -> Observable<PhotoResults> {
+    func searchImage(query: String, page: Int, perPage: Int) -> Observable<PhotoResults> {
+        guard let url = URL.urlForSearchPhotosAPI(query: query, page: page, perPage: perPage) else { return Observable.empty() }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         
-        guard let url = URL.urlForSearchPhotosAPI(query: query, page: page) else { return Observable.empty() }
-        let resource = Resource<PhotoResults>(url: url)
+        if let accessToken = AuthManager.shared.token {
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
         
-        return URLRequest.load(resource: resource)
+        return URLSession.shared.rx.data(request: request)
+            .map { data -> PhotoResults in
+                try JSONDecoder().decode(PhotoResults.self, from: data)
+            }
     }
 }
