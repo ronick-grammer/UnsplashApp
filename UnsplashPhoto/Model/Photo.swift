@@ -11,6 +11,10 @@ struct PhotoResults: Decodable {
     let results: [Photo]
 }
 
+struct PhotoResult: Decodable {
+    let photo: Photo
+}
+
 struct Photo: Decodable, Identifiable {
     let id: String
     var likes: Int

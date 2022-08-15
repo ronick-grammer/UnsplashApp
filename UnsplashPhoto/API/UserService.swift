@@ -13,39 +13,35 @@ struct UserService {
     static let disposeBag = DisposeBag()
     
     //좋아요
-    static func like(photoID: String, completion: @escaping(() -> Void)) {
+    static func like(photoID: String) -> Observable<Photo?> {
         
-        guard let accessToken = AuthManager.shared.token else { return }
+        guard let accessToken = AuthManager.shared.token else { return Observable.empty() }
         
-        guard let url = URL.urlForLikePhoto(photoID: photoID) else { return }
+        guard let url = URL.urlForLikePhoto(photoID: photoID) else { return Observable.empty() }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         
-        URLSession.shared.rx.data(request: request)
-            .subscribe(onNext: { _ in
-                
-                completion()
-                
-            }).disposed(by: disposeBag)
+        return URLSession.shared.rx.data(request: request)
+            .map { data -> Photo in
+                try JSONDecoder().decode(PhotoResult.self, from: data).photo
+            }
     }
     
     // 좋아요 취소
-    static func unlike(photoID: String, completion: @escaping(() -> Void)) {
+    static func unlike(photoID: String) -> Observable<Photo?> {
         
-        guard let accessToken = AuthManager.shared.token else { return }
+        guard let accessToken = AuthManager.shared.token else { return Observable.empty() }
         
-        guard let url = URL.urlForLikePhoto(photoID: photoID) else { return }
+        guard let url = URL.urlForLikePhoto(photoID: photoID) else { return Observable.empty() }
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         
-        URLSession.shared.rx.data(request: request)
-            .subscribe(onNext: { _ in
-                
-                completion()
-                
-            }).disposed(by: disposeBag)
+        return URLSession.shared.rx.data(request: request)
+            .map { data -> Photo in
+                try JSONDecoder().decode(PhotoResult.self, from: data).photo
+            }
     }
     
     // 셀을 로드할 때마다 좋아요 상태를 체크

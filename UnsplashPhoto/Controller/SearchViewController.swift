@@ -20,12 +20,15 @@ class SearchViewController: UITableViewController {
     
     private var searchViewModel = SearchViewModel()
     
+    private let fetchPhotoes =  PublishSubject<Void>()
+    
     lazy var input = SearchViewModel.Input(
         initialize: BehaviorSubject<Void>.init(value: Void()),
         searchButtonClicked: searchController.searchBar.rx.searchButtonClicked.asObservable(),
         searchQuery: searchController.searchBar.rx.text.asObservable(),
         page: BehaviorSubject<Int>.init(value: 1),
-        didScroll: toTuple()
+        didScroll: toTuple(),
+        fetchPhotoes: fetchPhotoes.asObservable()
     )
     
     lazy var output = searchViewModel.transform(input: input)
@@ -43,12 +46,11 @@ class SearchViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationController?.navigationBar.topItem?.title = "Search"
         navigationController?.navigationBar.topItem?.searchController = searchController
         navigationController?.navigationBar.topItem?.hidesSearchBarWhenScrolling = false
-        
-        tableView.reloadData()
+//        tableView.reloadData()
+        fetchPhotoes.onNext(())
     }
     
     private func bind() {
@@ -57,7 +59,8 @@ class SearchViewController: UITableViewController {
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
 
-                self?.tableView.reloadData()
+//                self?.tableView.reloadData()
+                self?.fetchPhotoes.onNext(())
 
             }).disposed(by: disposeBag)
         
