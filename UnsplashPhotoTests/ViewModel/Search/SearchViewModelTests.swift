@@ -38,7 +38,8 @@ class SearchViewModelTests: XCTestCase {
             searchButtonClicked: searchButtonClicked.asObservable(),
             searchQuery: searchQuery.asObservable(),
             page: BehaviorSubject<Int>.init(value: 1),
-            didScroll: didScroll.asObservable()
+            didScroll: didScroll.asObservable(),
+            fetchPhotoes: PublishSubject<Void>().asObservable()
             )
         output = sut.transform(input: input)
         
