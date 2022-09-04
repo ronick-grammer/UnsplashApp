@@ -14,7 +14,7 @@ import RxCocoa
 class SearchCell: UITableViewCell {
     
     var viewModel: SearchCellViewModel?
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     lazy var input = SearchCellViewModel.Input(likeButtonClicked: likeButton.rx.tap.asObservable())
     lazy var output = viewModel?.transform(input: input)
@@ -81,7 +81,7 @@ class SearchCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+        disposeBag = DisposeBag()
     }
     
     override func layoutSubviews() {
