@@ -66,8 +66,6 @@ class SearchCell: UITableViewCell {
         return stackView
     }()
     
-    var liked = false
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -81,6 +79,8 @@ class SearchCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        viewModel = nil
+        output = nil
         disposeBag = DisposeBag()
     }
     
@@ -110,8 +110,6 @@ class SearchCell: UITableViewCell {
         likeButton.snp.makeConstraints { maker in
             maker.width.height.equalTo(25)
         }
-        
-//        likeButton.addTarget(self, action: #selector(toggleLike(_:)), for: .touchUpInside)
     }
     
     func configure(photo: Photo) {
@@ -121,6 +119,8 @@ class SearchCell: UITableViewCell {
         updateLike(photo: photo)
         
         viewModel = SearchCellViewModel(photoId: photo.id, likedByMe: photo.liked_by_user)
+        output = viewModel?.transform(input: input)
+        
         output?.photo.observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] photo in
                 guard let photo = photo else { return }
@@ -131,16 +131,10 @@ class SearchCell: UITableViewCell {
     
     func updateLike(photo: Photo) {
         self.likes.text = String(photo.likes)
-        self.liked = photo.liked_by_user
         
         self.likeButton.setImage(
             UIImage(systemName: photo.liked_by_user ? "bolt.heart.fill" : "bolt.heart")!,
             for: .normal
         )
     }
-    
-//    @objc func toggleLike(_ sender: UIButton) {
-//        liked ? viewModel?.unlike() : viewModel?.like()
-//
-//    }
 }

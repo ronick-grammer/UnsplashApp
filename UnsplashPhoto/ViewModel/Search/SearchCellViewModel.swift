@@ -26,14 +26,13 @@ class SearchCellViewModel: ViewModelType {
     init(photoId: String, likedByMe: Bool) {
         self.photoId = photoId
         self.likedByMe = likedByMe
-//        checkIfUserLikedPhoto()
     }
     
     func transform(input: Input) -> Output {
         let photo = input.likeButtonClicked
             .skip { AuthManager.shared.user == nil }
             .scan(likedByMe) { old, _ in
-                print("likedByMe: ", self.likedByMe)
+                print("likedByMe: ", self.likedByMe, ", addr: ", Unmanaged.passUnretained(self).toOpaque())
                 return !old
             }.flatMap { liked -> Observable<Photo?> in
                 return liked ? self.like() : self.unlike()
