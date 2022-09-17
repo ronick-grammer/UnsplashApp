@@ -174,9 +174,7 @@ class SearchServiceStub: SearchServiceProtocol {
             ]
         ]
     ]
-    
-
-    func searchImage(query: String, page: Int) -> Observable<PhotoResults> {
+    func searchImage(query: String, page: Int, perPage: Int) -> Observable<PhotoResults> {
         let data = try! JSONSerialization.data(withJSONObject: photoResultsResponse, options: .prettyPrinted)
         let photoResults = try! JSONDecoder().decode(PhotoResults.self, from: data)
         
